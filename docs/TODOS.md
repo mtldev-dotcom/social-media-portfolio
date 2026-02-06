@@ -117,8 +117,8 @@ This is the working task list for building the "social-profile portfolio" UI des
 
 ### Phase 4 — AI Guide
 
-- [ ] Update AI Guide copy in translation files
-- [ ] Create `/docs/ai-guide.md` (scope rules)
+- [x] Update AI Guide copy in translation files (already matches spec)
+- [x] Create `/docs/ai-guide.md` (scope rules)
 
 ### Phase 5 — Fun / Flex Features
 
