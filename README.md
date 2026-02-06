@@ -14,6 +14,9 @@ A **modern personal portfolio website designed as a social media profile page** 
 - **Bilingual (EN/FR)**: route-based localization with automatic language detection and switcher
 - **Profile header**: avatar, verified badge, headline, location, status, action buttons
 - **Social feed cards**: POSTs, PROJECTs, STORYs, NOTEs, EXPERIMENTs, ACTIVITYs — seed data in `content/seed.json`
+- **Feed/Timeline toggle**: switch between chronological feed and year-grouped timeline
+- **Lab page**: experiments and tools (EXPERIMENT type from seed data)
+- **Notes page**: learnings and reflections (NOTE type from seed data)
 - **Floating AI Guide panel**: UI-ready placeholder (no backend yet)
 - **Strict Facebook-inspired palette**: blue accent only; neutral surfaces; no gradients
 

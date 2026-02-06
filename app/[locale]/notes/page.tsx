@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import { LeftNav } from "@/components/LeftNav";
 import { RightRail } from "@/components/RightRail";
 import { Card, CardBody, CardHeader } from "@/components/ui/Card";
+import seedData from "@/content/seed.json";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -11,8 +12,7 @@ type Props = {
 
 /**
  * Notes page — filtered feed showing NOTE-type content only.
- * Content will be populated from seed data in Phase 3.
- * For now, renders a shell with an empty-state message.
+ * Renders NOTE items from content/seed.json.
  */
 export default function NotesPage({ params }: Props) {
   const { locale } = use(params);
@@ -43,20 +43,57 @@ export default function NotesPage({ params }: Props) {
 }
 
 /**
- * NotesContent — renders the notes heading and items (or empty state).
- * All text resolved from the "notes" translation namespace.
+ * NotesContent — renders the notes heading and NOTE items.
+ * Falls back to empty state if no notes exist.
  */
 function NotesContent() {
-  const t = useTranslations("notes");
+  const tNotes = useTranslations("notes");
+  const tFeed = useTranslations("feed");
+
+  const notes = seedData
+    .filter((item) => item.type === "NOTE")
+    .sort(
+      (a, b) =>
+        new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+    );
 
   return (
-    <Card>
-      <CardHeader title={t("heading")} subtitle={t("description")} />
-      <CardBody>
-        <p className="py-8 text-center text-sm text-foreground/50">
-          {t("emptyState")}
-        </p>
-      </CardBody>
-    </Card>
+    <>
+      <Card>
+        <CardHeader
+          title={tNotes("heading")}
+          subtitle={tNotes("description")}
+        />
+      </Card>
+
+      {notes.length === 0 ? (
+        <Card>
+          <CardBody>
+            <p className="py-8 text-center text-sm text-foreground/50">
+              {tNotes("emptyState")}
+            </p>
+          </CardBody>
+        </Card>
+      ) : (
+        notes.map((item) => (
+          <Card key={item.id}>
+            <CardBody className="pt-5">
+              <span className="mb-2 inline-block rounded-md bg-surface-2 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-foreground/50">
+                NOTE
+              </span>
+              <p className="text-xs text-muted-2">
+                {tFeed(`${item.id}.time`)}
+              </p>
+              <h3 className="mt-2 font-display text-base tracking-tight text-foreground">
+                {tFeed(`${item.id}.title`)}
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-foreground/80">
+                {tFeed(`${item.id}.body`)}
+              </p>
+            </CardBody>
+          </Card>
+        ))
+      )}
+    </>
   );
 }

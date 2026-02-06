@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import { LeftNav } from "@/components/LeftNav";
 import { RightRail } from "@/components/RightRail";
 import { Card, CardBody, CardHeader } from "@/components/ui/Card";
+import seedData from "@/content/seed.json";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -11,8 +12,7 @@ type Props = {
 
 /**
  * Lab page — experiments, tools, interactive demos, unfinished ideas.
- * Content will be populated from seed data in Phase 5.
- * For now, renders a shell with an empty-state message.
+ * Renders EXPERIMENT-type items from content/seed.json.
  */
 export default function LabPage({ params }: Props) {
   const { locale } = use(params);
@@ -43,20 +43,68 @@ export default function LabPage({ params }: Props) {
 }
 
 /**
- * LabContent — renders the lab heading and items (or empty state).
- * All text resolved from the "lab" translation namespace.
+ * LabContent — renders the lab heading and EXPERIMENT items.
+ * Falls back to empty state if no experiments exist.
  */
 function LabContent() {
-  const t = useTranslations("lab");
+  const tLab = useTranslations("lab");
+  const tFeed = useTranslations("feed");
+
+  const experiments = seedData
+    .filter((item) => item.type === "EXPERIMENT")
+    .sort(
+      (a, b) =>
+        new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+    );
 
   return (
-    <Card>
-      <CardHeader title={t("heading")} subtitle={t("description")} />
-      <CardBody>
-        <p className="py-8 text-center text-sm text-foreground/50">
-          {t("emptyState")}
-        </p>
-      </CardBody>
-    </Card>
+    <>
+      <Card>
+        <CardHeader title={tLab("heading")} subtitle={tLab("description")} />
+      </Card>
+
+      {experiments.length === 0 ? (
+        <Card>
+          <CardBody>
+            <p className="py-8 text-center text-sm text-foreground/50">
+              {tLab("emptyState")}
+            </p>
+          </CardBody>
+        </Card>
+      ) : (
+        experiments.map((item) => (
+          <Card key={item.id}>
+            <CardBody className="pt-5">
+              <span className="mb-2 inline-block rounded-md bg-surface-2 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-foreground/50">
+                EXPERIMENT
+              </span>
+              <p className="text-xs text-muted-2">
+                {tFeed(`${item.id}.time`)}
+              </p>
+              <h3 className="mt-2 font-display text-base tracking-tight text-foreground">
+                {tFeed(`${item.id}.title`)}
+              </h3>
+              <div className="mt-3 space-y-2 text-sm leading-relaxed">
+                <p className="text-foreground/80">
+                  {tFeed(`${item.id}.what`)}
+                </p>
+                <p className="text-muted">
+                  <span className="font-medium text-foreground/60">
+                    why —{" "}
+                  </span>
+                  {tFeed(`${item.id}.why`)}
+                </p>
+                <p className="text-muted">
+                  <span className="font-medium text-foreground/60">
+                    learned —{" "}
+                  </span>
+                  {tFeed(`${item.id}.learned`)}
+                </p>
+              </div>
+            </CardBody>
+          </Card>
+        ))
+      )}
+    </>
   );
 }

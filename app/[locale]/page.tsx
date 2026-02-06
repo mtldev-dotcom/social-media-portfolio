@@ -1,6 +1,6 @@
 import { use } from "react";
 import { setRequestLocale } from "next-intl/server";
-import { Feed } from "@/components/Feed";
+import { FeedWithTimeline } from "@/components/FeedWithTimeline";
 import { LeftNav } from "@/components/LeftNav";
 import { ProfileHeader } from "@/components/ProfileHeader";
 import { RightRail } from "@/components/RightRail";
@@ -28,7 +28,7 @@ export default function Home({ params }: Props) {
           {/* Center feed */}
           <main className="space-y-4">
             <ProfileHeader />
-            <Feed />
+            <FeedWithTimeline />
           </main>
 
           {/* Right rail */}

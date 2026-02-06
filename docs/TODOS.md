@@ -122,9 +122,10 @@ This is the working task list for building the "social-profile portfolio" UI des
 
 ### Phase 5 — Fun / Flex Features
 
-- [ ] Create `/docs/lab.md` + Lab page + LabCard component
-- [ ] Create `/docs/timeline.md` + TimelineView toggle
-- [ ] Create `/docs/abandoned.md` (tone doc)
+- [x] Create `/docs/lab.md` + Lab page renders EXPERIMENT items from seed.json
+- [x] Create `/docs/timeline.md` + FeedToggle + TimelineView (groups by year)
+- [x] Create `/docs/abandoned.md` (tone doc)
+- [x] Notes page renders NOTE items from seed.json
 
 ### Phase 6 — Visual & UX Polish
 
