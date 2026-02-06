@@ -1,0 +1,18 @@
+{
+  "id": "exp1",
+  "type": "EXPERIMENT",
+  "variant": "default",
+  "slug": "prompt-chaining-playground",
+  "locale": "en",
+  "status": "published",
+  "publishedAt": "2026-01-20T14:00:00Z",
+  "title": "prompt chaining playground",
+  "body": "a small sandbox for testing multi-step AI prompt chains visually.",
+  "tags": ["ai", "playground"],
+  "meta": {
+    "time": "2 weeks ago",
+    "what": "a small sandbox for testing multi-step AI prompt chains visually.",
+    "why": "i wanted to see how prompts compose before wiring them into production.",
+    "learned": "sequential chains are fragile. branching and fallback paths matter more than the happy path."
+  }
+}

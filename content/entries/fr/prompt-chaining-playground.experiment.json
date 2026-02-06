@@ -1,0 +1,18 @@
+{
+  "id": "exp1",
+  "type": "EXPERIMENT",
+  "variant": "default",
+  "slug": "prompt-chaining-playground",
+  "locale": "fr",
+  "status": "published",
+  "publishedAt": "2026-01-20T14:00:00Z",
+  "title": "bac à sable de chaînage de prompts",
+  "body": "un petit bac à sable pour tester visuellement des chaînes de prompts IA multi-étapes.",
+  "tags": ["ia", "terrain-de-jeu"],
+  "meta": {
+    "time": "il y a 2 semaines",
+    "what": "un petit bac à sable pour tester visuellement des chaînes de prompts IA multi-étapes.",
+    "why": "je voulais voir comment les prompts se composent avant de les brancher en production.",
+    "learned": "les chaînes séquentielles sont fragiles. les chemins de branchement et de repli comptent plus que le chemin heureux."
+  }
+}

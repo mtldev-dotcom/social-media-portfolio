@@ -154,7 +154,20 @@ The main feed includes these content types (defined in `/docs/content-types.md`)
 | EXPERIMENT | What / why / learned |
 | ACTIVITY   | Building status or availability update |
 
-Data is structured in `content/seed.json`; text content is resolved from translation files (`messages/{locale}.json`).
+### Content architecture (file-based CMS)
+
+Content is stored as one JSON file per entry per locale:
+
+```
+content/entries/{locale}/{slug}.{type}.json
+```
+
+- **Loader**: `lib/content/loader.ts` reads files with `fs/promises`, validates, filters drafts, sorts by date.
+- **Caching**: `lib/content/index.ts` wraps loaders with React `cache()`.
+- **Types**: `lib/content/types.ts` defines `Entry`, `EntryType`, etc.
+- **Detail pages**: `app/[locale]/[type]/[slug]/page.tsx` renders each entry with Markdown body support.
+- **UI chrome** (nav, buttons, labels) stays in `messages/{locale}.json` via `next-intl`.
+- **Content text** lives directly in entry JSON files — no longer in translation files.
 
 ---
 

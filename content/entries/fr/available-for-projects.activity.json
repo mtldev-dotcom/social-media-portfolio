@@ -1,0 +1,15 @@
+{
+  "id": "s1",
+  "type": "ACTIVITY",
+  "variant": "status",
+  "slug": "available-for-projects",
+  "locale": "fr",
+  "status": "published",
+  "publishedAt": "2026-02-05T12:00:00Z",
+  "tags": [],
+  "meta": {
+    "label": "Activité",
+    "value": "Disponible pour des projets · Télétravail",
+    "time": "Mis à jour aujourd'hui"
+  }
+}

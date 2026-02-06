@@ -1,0 +1,22 @@
+{
+  "id": "e1",
+  "type": "STORY",
+  "variant": "default",
+  "slug": "creative-technologist",
+  "locale": "fr",
+  "status": "published",
+  "publishedAt": "2023-01-01T00:00:00Z",
+  "title": "Technologue créatif",
+  "summary": "Indépendant · Travail client",
+  "tags": ["carrière", "tech-créatif"],
+  "meta": {
+    "role": "Technologue créatif",
+    "org": "Indépendant · Travail client",
+    "time": "2023 — Présent",
+    "bullets": [
+      "Conçu des systèmes d'IA et d'automatisation axés sur la fiabilité, la reproductibilité et un ROI mesurable.",
+      "Créé des surfaces produits de qualité éditoriale et des modèles d'interaction pour des interfaces de haute confiance.",
+      "Livré de bout en bout : concept → prototype → production avec une DX soignée."
+    ]
+  }
+}

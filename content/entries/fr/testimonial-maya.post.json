@@ -1,0 +1,16 @@
+{
+  "id": "x2",
+  "type": "POST",
+  "variant": "testimonial",
+  "slug": "testimonial-maya",
+  "locale": "fr",
+  "status": "published",
+  "publishedAt": "2026-01-05T11:00:00Z",
+  "tags": ["témoignage"],
+  "meta": {
+    "from": "Maya S.",
+    "role": "Fondatrice",
+    "time": "Il y a 1 mois",
+    "comment": "Pensée claire, livraison calme et excellents instincts d'automatisation. Tout est venu avec un plan et un scénario de test."
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "id": "b1",
+  "type": "ACTIVITY",
+  "variant": "building",
+  "slug": "currently-building",
+  "locale": "en",
+  "status": "published",
+  "publishedAt": "2026-02-05T18:00:00Z",
+  "title": "Currently building",
+  "summary": "An AI-native profile layer that turns a portfolio into a living feed of proof, progress, and context.",
+  "tags": ["next.js", "typescript", "tailwind"],
+  "meta": {
+    "time": "Now",
+    "stack": ["Next.js", "TypeScript", "Tailwind v4"]
+  }
+}

@@ -167,6 +167,49 @@ html[data-theme="light"] {
     height: 1px;
     background: var(--divider);
   }
+
+  /* Minimal prose styles for Markdown content on detail pages. */
+  .prose-custom {
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+  .prose-custom p {
+    margin-bottom: 1em;
+  }
+  .prose-custom h1,
+  .prose-custom h2,
+  .prose-custom h3 {
+    color: var(--text-primary);
+    font-weight: 600;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+  }
+  .prose-custom a {
+    color: var(--fb-blue);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .prose-custom ul,
+  .prose-custom ol {
+    padding-left: 1.25em;
+    margin-bottom: 1em;
+  }
+  .prose-custom li {
+    margin-bottom: 0.25em;
+  }
+  .prose-custom code {
+    background: var(--surface-2);
+    padding: 0.15em 0.35em;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+  }
+  .prose-custom blockquote {
+    border-left: 3px solid var(--divider-strong);
+    padding-left: 1em;
+    margin: 1em 0;
+    color: var(--text-tertiary);
+  }
 }
 
 ::selection {

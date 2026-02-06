@@ -4,7 +4,9 @@ import { useTranslations } from "next-intl";
 import { LeftNav } from "@/components/LeftNav";
 import { RightRail } from "@/components/RightRail";
 import { Card, CardBody, CardHeader } from "@/components/ui/Card";
-import seedData from "@/content/seed.json";
+import { Link } from "@/i18n/navigation";
+import { getEntriesByType } from "@/lib/content";
+import type { Entry, Locale } from "@/lib/content";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -12,27 +14,24 @@ type Props = {
 
 /**
  * Notes page — filtered feed showing NOTE-type content only.
- * Renders NOTE items from content/seed.json.
+ * Reads NOTE entries from the file-based CMS.
  */
 export default function NotesPage({ params }: Props) {
   const { locale } = use(params);
   setRequestLocale(locale);
 
+  const notes = use(getEntriesByType(locale as Locale, "NOTE"));
+
   return (
     <div className="min-h-screen bg-background">
       <div className="mx-auto w-full max-w-[1260px] px-4 py-6">
         <div className="grid grid-cols-1 gap-4 md:grid-cols-[72px_minmax(0,1fr)_360px]">
-          {/* Left icon navigation */}
           <div className="md:pr-0">
             <LeftNav />
           </div>
-
-          {/* Center content */}
           <main className="space-y-4">
-            <NotesContent />
+            <NotesContent notes={notes} />
           </main>
-
-          {/* Right rail */}
           <div className="md:pl-0">
             <RightRail />
           </div>
@@ -42,28 +41,13 @@ export default function NotesPage({ params }: Props) {
   );
 }
 
-/**
- * NotesContent — renders the notes heading and NOTE items.
- * Falls back to empty state if no notes exist.
- */
-function NotesContent() {
+function NotesContent({ notes }: { notes: Entry[] }) {
   const tNotes = useTranslations("notes");
-  const tFeed = useTranslations("feed");
-
-  const notes = seedData
-    .filter((item) => item.type === "NOTE")
-    .sort(
-      (a, b) =>
-        new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
-    );
 
   return (
     <>
       <Card>
-        <CardHeader
-          title={tNotes("heading")}
-          subtitle={tNotes("description")}
-        />
+        <CardHeader title={tNotes("heading")} subtitle={tNotes("description")} />
       </Card>
 
       {notes.length === 0 ? (
@@ -75,20 +59,25 @@ function NotesContent() {
           </CardBody>
         </Card>
       ) : (
-        notes.map((item) => (
-          <Card key={item.id}>
+        notes.map((entry) => (
+          <Card key={entry.id}>
             <CardBody className="pt-5">
               <span className="mb-2 inline-block rounded-md bg-surface-2 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-foreground/50">
                 NOTE
               </span>
               <p className="text-xs text-muted-2">
-                {tFeed(`${item.id}.time`)}
+                {(entry.meta?.time as string) ?? ""}
               </p>
               <h3 className="mt-2 font-display text-base tracking-tight text-foreground">
-                {tFeed(`${item.id}.title`)}
+                <Link
+                  href={`/note/${entry.slug}`}
+                  className="transition-colors hover:text-accent"
+                >
+                  {entry.title}
+                </Link>
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-foreground/80">
-                {tFeed(`${item.id}.body`)}
+                {entry.body}
               </p>
             </CardBody>
           </Card>

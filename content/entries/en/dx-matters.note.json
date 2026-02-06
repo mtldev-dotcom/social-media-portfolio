@@ -1,0 +1,15 @@
+{
+  "id": "n2",
+  "type": "NOTE",
+  "variant": "default",
+  "slug": "dx-matters",
+  "locale": "en",
+  "status": "published",
+  "publishedAt": "2026-01-15T16:00:00Z",
+  "title": "dx matters more than you think",
+  "body": "if the developer experience is bad, the product will be bad. clean APIs, honest error messages, fast feedback loops — that's the foundation.",
+  "tags": ["dx", "tooling"],
+  "meta": {
+    "time": "3 weeks ago"
+  }
+}

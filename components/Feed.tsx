@@ -1,36 +1,14 @@
 import Image from "next/image";
-import { useTranslations } from "next-intl";
 import { Card, CardBody } from "./ui/Card";
 import { Tag } from "./ui/Tag";
-import seedData from "@/content/seed.json";
-
-/**
- * Content types from /docs/content-types.md.
- * Each seed item has a `type` field matching one of these.
- */
-type ContentType = "POST" | "PROJECT" | "NOTE" | "EXPERIMENT" | "STORY" | "ACTIVITY";
-
-/**
- * Shape of a single item in content/seed.json.
- * The `variant` field disambiguates sub-kinds within the same type.
- */
-type SeedItem = {
-  id: string;
-  type: ContentType;
-  variant: string;
-  timestamp: string;
-  tags: string[];
-  media: string | null;
-  meta?: {
-    stats?: { replies: number; reposts: number; likes: number };
-  };
-};
+import { Link } from "@/i18n/navigation";
+import type { Entry, EntryType } from "@/lib/content/types";
 
 /**
  * TypeLabel — small uppercase badge shown at the top of every card.
  * Helps the reader scan and mentally filter content.
  */
-function TypeLabel({ type }: { type: ContentType }) {
+function TypeLabel({ type }: { type: EntryType }) {
   return (
     <span className="mb-2 inline-block rounded-md bg-surface-2 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-foreground/50">
       {type}
@@ -40,35 +18,27 @@ function TypeLabel({ type }: { type: ContentType }) {
 
 /**
  * Feed
- * - Reads structured data from content/seed.json.
- * - Renders items sorted by timestamp (newest first).
- * - Text content is resolved from the "feed" translation namespace using item ids.
- * - Supports: POST, PROJECT, NOTE, EXPERIMENT, STORY, ACTIVITY.
+ * - Receives entries from the parent (server-fetched via loader).
+ * - Entries are already sorted by the loader (newest first).
+ * - All text is read directly from entry fields (no translation hooks for content).
  */
-export function Feed() {
-  const t = useTranslations("feed");
-
-  /* Sort seed items by timestamp descending (newest first). */
-  const items = [...(seedData as SeedItem[])].sort(
-    (a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
-  );
-
+export function Feed({ entries }: { entries: Entry[] }) {
   return (
     <div className="space-y-4">
-      {items.map((item) => {
-        switch (item.type) {
+      {entries.map((entry) => {
+        switch (entry.type) {
           case "POST":
-            return <PostCard key={item.id} item={item} t={t} />;
+            return <PostCard key={entry.id} entry={entry} />;
           case "PROJECT":
-            return <ProjectCard key={item.id} item={item} t={t} />;
+            return <ProjectCard key={entry.id} entry={entry} />;
           case "STORY":
-            return <StoryCard key={item.id} item={item} t={t} />;
+            return <StoryCard key={entry.id} entry={entry} />;
           case "ACTIVITY":
-            return <ActivityCard key={item.id} item={item} t={t} />;
+            return <ActivityCard key={entry.id} entry={entry} />;
           case "NOTE":
-            return <NoteCard key={item.id} item={item} t={t} />;
+            return <NoteCard key={entry.id} entry={entry} />;
           case "EXPERIMENT":
-            return <ExperimentCard key={item.id} item={item} t={t} />;
+            return <ExperimentCard key={entry.id} entry={entry} />;
           default:
             return null;
         }
@@ -81,36 +51,45 @@ export function Feed() {
 /*  Card variants                                                      */
 /* ------------------------------------------------------------------ */
 
-type CardProps = {
-  item: SeedItem;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  t: any;
-};
+/** Helper: get meta field safely. */
+function m(entry: Entry, key: string): string {
+  return (entry.meta?.[key] as string) ?? "";
+}
+
+/**
+ * EntryLink — wraps children in a link to the detail page.
+ */
+function EntryLink({ entry, children }: { entry: Entry; children: React.ReactNode }) {
+  return (
+    <Link
+      href={`/${entry.type.toLowerCase()}/${entry.slug}`}
+      className="transition-colors hover:text-accent"
+    >
+      {children}
+    </Link>
+  );
+}
 
 /**
  * PostCard — short text post (X/Twitter-style) or testimonial.
- * Uses item.variant to distinguish between "text" and "testimonial".
  */
-function PostCard({ item, t }: CardProps) {
-  if (item.variant === "testimonial") {
+function PostCard({ entry }: { entry: Entry }) {
+  if (entry.variant === "testimonial") {
     return (
       <Card>
         <CardBody className="pt-5">
-          <TypeLabel type={item.type} />
-          <p className="text-xs text-muted-2">{t(`${item.id}.time`)}</p>
+          <TypeLabel type={entry.type} />
+          <p className="text-xs text-muted-2">{m(entry, "time")}</p>
           <div className="mt-3 flex items-start gap-3">
             <div className="h-9 w-9 rounded-full border border-divider bg-surface-2" />
             <div className="min-w-0">
               <p className="text-sm text-foreground/90">
-                <span className="font-medium">{t(`${item.id}.from`)}</span>{" "}
-                <span className="text-muted">· {t(`${item.id}.role`)}</span>
+                <span className="font-medium">{m(entry, "from")}</span>{" "}
+                <span className="text-muted">· {m(entry, "role")}</span>
               </p>
               <p className="mt-2 text-sm leading-relaxed text-muted">
-                {t(`${item.id}.comment`)}
+                <EntryLink entry={entry}>{m(entry, "comment")}</EntryLink>
               </p>
-              <div className="mt-3 text-xs text-muted">
-                {t("actions.reply")} · {t("actions.like")} · {t("actions.share")}
-              </div>
             </div>
           </div>
         </CardBody>
@@ -119,28 +98,30 @@ function PostCard({ item, t }: CardProps) {
   }
 
   /* Regular text post */
-  const stats = item.meta?.stats;
+  const stats = entry.meta?.stats as
+    | { replies: number; reposts: number; likes: number }
+    | undefined;
   return (
     <Card>
       <CardBody className="pt-5">
-        <TypeLabel type={item.type} />
+        <TypeLabel type={entry.type} />
         <div className="flex items-start justify-between gap-4">
           <div className="min-w-0">
             <p className="text-sm text-foreground/90">
-              <span className="font-medium">{t(`${item.id}.author`)}</span>{" "}
-              <span className="text-muted">{t(`${item.id}.handle`)}</span>{" "}
-              <span className="text-muted-2">· {t(`${item.id}.time`)}</span>
+              <span className="font-medium">{m(entry, "author")}</span>{" "}
+              <span className="text-muted">{m(entry, "handle")}</span>{" "}
+              <span className="text-muted-2">· {m(entry, "time")}</span>
             </p>
             <p className="mt-3 text-base leading-relaxed text-foreground">
-              {t(`${item.id}.content`)}
+              <EntryLink entry={entry}>{entry.body}</EntryLink>
             </p>
           </div>
         </div>
         {stats && (
           <div className="mt-4 flex items-center gap-4 text-xs text-muted">
-            <span>{stats.replies} {t(`${item.id}.repliesLabel`)}</span>
-            <span>{stats.reposts} {t(`${item.id}.repostsLabel`)}</span>
-            <span>{stats.likes} {t(`${item.id}.likesLabel`)}</span>
+            <span>{stats.replies} {m(entry, "repliesLabel")}</span>
+            <span>{stats.reposts} {m(entry, "repostsLabel")}</span>
+            <span>{stats.likes} {m(entry, "likesLabel")}</span>
           </div>
         )}
       </CardBody>
@@ -151,18 +132,18 @@ function PostCard({ item, t }: CardProps) {
 /**
  * ProjectCard — project with thumbnail (Instagram-style).
  */
-function ProjectCard({ item, t }: CardProps) {
-  const tags = t.raw(`${item.id}.tags`) as string[];
+function ProjectCard({ entry }: { entry: Entry }) {
+  const tags = entry.tags ?? [];
   return (
     <Card className="overflow-hidden">
       <div className="px-5 pt-5">
-        <TypeLabel type={item.type} />
+        <TypeLabel type={entry.type} />
       </div>
-      {item.media && (
+      {entry.hero && (
         <div className="relative aspect-[16/9] w-full border-b border-divider bg-surface-2">
           <Image
-            src={item.media}
-            alt={`${t(`${item.id}.title`)} thumbnail`}
+            src={entry.hero.src}
+            alt={entry.hero.alt ?? `${entry.title} thumbnail`}
             fill
             className="object-cover"
           />
@@ -171,12 +152,12 @@ function ProjectCard({ item, t }: CardProps) {
       <CardBody className="pt-5">
         <div className="flex items-start justify-between gap-4">
           <div className="min-w-0">
-            <p className="text-xs text-muted-2">{t(`${item.id}.time`)}</p>
+            <p className="text-xs text-muted-2">{m(entry, "time")}</p>
             <h3 className="mt-2 font-display text-base tracking-tight text-foreground">
-              {t(`${item.id}.title`)}
+              <EntryLink entry={entry}>{entry.title}</EntryLink>
             </h3>
             <p className="mt-2 text-sm leading-relaxed text-muted">
-              {t(`${item.id}.description`)}
+              {entry.summary}
             </p>
             <div className="mt-4 flex flex-wrap gap-2">
               {tags.map((tag: string) => (
@@ -193,17 +174,17 @@ function ProjectCard({ item, t }: CardProps) {
 /**
  * StoryCard — experience / timeline entry (LinkedIn-style).
  */
-function StoryCard({ item, t }: CardProps) {
-  const bullets = t.raw(`${item.id}.bullets`) as string[];
+function StoryCard({ entry }: { entry: Entry }) {
+  const bullets = (entry.meta?.bullets as string[]) ?? [];
   return (
     <Card>
       <CardBody className="pt-5">
-        <TypeLabel type={item.type} />
-        <p className="text-xs text-muted-2">{t(`${item.id}.time`)}</p>
+        <TypeLabel type={entry.type} />
+        <p className="text-xs text-muted-2">{m(entry, "time")}</p>
         <h3 className="mt-2 font-display text-base tracking-tight text-foreground">
-          {t(`${item.id}.role`)}
+          <EntryLink entry={entry}>{m(entry, "role")}</EntryLink>
         </h3>
-        <p className="mt-1 text-sm text-muted">{t(`${item.id}.org`)}</p>
+        <p className="mt-1 text-sm text-muted">{m(entry, "org")}</p>
         <ul className="mt-4 space-y-2 text-sm leading-relaxed text-foreground/90">
           {bullets.map((b: string) => (
             <li key={b} className="flex gap-2">
@@ -222,21 +203,20 @@ function StoryCard({ item, t }: CardProps) {
 
 /**
  * ActivityCard — building status or availability update.
- * Uses item.variant to distinguish between "building" and "status".
  */
-function ActivityCard({ item, t }: CardProps) {
-  if (item.variant === "building") {
-    const stack = t.raw(`${item.id}.stack`) as string[];
+function ActivityCard({ entry }: { entry: Entry }) {
+  if (entry.variant === "building") {
+    const stack = (entry.meta?.stack as string[]) ?? [];
     return (
       <Card>
         <CardBody className="pt-5">
-          <TypeLabel type={item.type} />
-          <p className="text-xs text-muted-2">{t(`${item.id}.time`)}</p>
+          <TypeLabel type={entry.type} />
+          <p className="text-xs text-muted-2">{m(entry, "time")}</p>
           <h3 className="mt-2 font-display text-base tracking-tight text-foreground">
-            {t(`${item.id}.title`)}
+            <EntryLink entry={entry}>{entry.title}</EntryLink>
           </h3>
           <p className="mt-2 text-sm leading-relaxed text-muted">
-            {t(`${item.id}.summary`)}
+            {entry.summary}
           </p>
           <div className="mt-4 flex flex-wrap gap-2">
             {stack.map((s: string) => (
@@ -252,11 +232,13 @@ function ActivityCard({ item, t }: CardProps) {
   return (
     <Card>
       <CardBody className="pt-5">
-        <TypeLabel type={item.type} />
-        <p className="text-xs text-muted-2">{t(`${item.id}.time`)}</p>
+        <TypeLabel type={entry.type} />
+        <p className="text-xs text-muted-2">{m(entry, "time")}</p>
         <div className="mt-3 flex items-center justify-between gap-3">
-          <p className="text-sm text-muted">{t(`${item.id}.label`)}</p>
-          <p className="text-sm text-foreground">{t(`${item.id}.value`)}</p>
+          <p className="text-sm text-muted">{m(entry, "label")}</p>
+          <p className="text-sm text-foreground">
+            <EntryLink entry={entry}>{m(entry, "value")}</EntryLink>
+          </p>
         </div>
       </CardBody>
     </Card>
@@ -266,17 +248,17 @@ function ActivityCard({ item, t }: CardProps) {
 /**
  * NoteCard — learning, reflection, or reminder.
  */
-function NoteCard({ item, t }: CardProps) {
+function NoteCard({ entry }: { entry: Entry }) {
   return (
     <Card>
       <CardBody className="pt-5">
-        <TypeLabel type={item.type} />
-        <p className="text-xs text-muted-2">{t(`${item.id}.time`)}</p>
+        <TypeLabel type={entry.type} />
+        <p className="text-xs text-muted-2">{m(entry, "time")}</p>
         <h3 className="mt-2 font-display text-base tracking-tight text-foreground">
-          {t(`${item.id}.title`)}
+          <EntryLink entry={entry}>{entry.title}</EntryLink>
         </h3>
         <p className="mt-3 text-sm leading-relaxed text-foreground/80">
-          {t(`${item.id}.body`)}
+          {entry.body}
         </p>
       </CardBody>
     </Card>
@@ -285,26 +267,25 @@ function NoteCard({ item, t }: CardProps) {
 
 /**
  * ExperimentCard — tool, playground, or weird idea.
- * Shows: what it is, why I built it, what I learned.
  */
-function ExperimentCard({ item, t }: CardProps) {
+function ExperimentCard({ entry }: { entry: Entry }) {
   return (
     <Card>
       <CardBody className="pt-5">
-        <TypeLabel type={item.type} />
-        <p className="text-xs text-muted-2">{t(`${item.id}.time`)}</p>
+        <TypeLabel type={entry.type} />
+        <p className="text-xs text-muted-2">{m(entry, "time")}</p>
         <h3 className="mt-2 font-display text-base tracking-tight text-foreground">
-          {t(`${item.id}.title`)}
+          <EntryLink entry={entry}>{entry.title}</EntryLink>
         </h3>
         <div className="mt-3 space-y-2 text-sm leading-relaxed">
-          <p className="text-foreground/80">{t(`${item.id}.what`)}</p>
+          <p className="text-foreground/80">{m(entry, "what")}</p>
           <p className="text-muted">
             <span className="font-medium text-foreground/60">why — </span>
-            {t(`${item.id}.why`)}
+            {m(entry, "why")}
           </p>
           <p className="text-muted">
             <span className="font-medium text-foreground/60">learned — </span>
-            {t(`${item.id}.learned`)}
+            {m(entry, "learned")}
           </p>
         </div>
       </CardBody>

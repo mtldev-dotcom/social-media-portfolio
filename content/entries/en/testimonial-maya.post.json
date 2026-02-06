@@ -1,0 +1,16 @@
+{
+  "id": "x2",
+  "type": "POST",
+  "variant": "testimonial",
+  "slug": "testimonial-maya",
+  "locale": "en",
+  "status": "published",
+  "publishedAt": "2026-01-05T11:00:00Z",
+  "tags": ["testimonial"],
+  "meta": {
+    "from": "Maya S.",
+    "role": "Founder",
+    "time": "1 month ago",
+    "comment": "Clear thinking, calm delivery, and excellent automation instincts. Everything came with a plan and a test story."
+  }
+}

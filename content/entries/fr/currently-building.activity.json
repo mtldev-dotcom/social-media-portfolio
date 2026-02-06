@@ -1,0 +1,16 @@
+{
+  "id": "b1",
+  "type": "ACTIVITY",
+  "variant": "building",
+  "slug": "currently-building",
+  "locale": "fr",
+  "status": "published",
+  "publishedAt": "2026-02-05T18:00:00Z",
+  "title": "En cours de construction",
+  "summary": "Une couche de profil native IA qui transforme un portfolio en un flux vivant de preuves, de progrès et de contexte.",
+  "tags": ["next.js", "typescript", "tailwind"],
+  "meta": {
+    "time": "Maintenant",
+    "stack": ["Next.js", "TypeScript", "Tailwind v4"]
+  }
+}

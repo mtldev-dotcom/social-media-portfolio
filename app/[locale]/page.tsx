@@ -4,6 +4,8 @@ import { FeedWithTimeline } from "@/components/FeedWithTimeline";
 import { LeftNav } from "@/components/LeftNav";
 import { ProfileHeader } from "@/components/ProfileHeader";
 import { RightRail } from "@/components/RightRail";
+import { getAllEntries } from "@/lib/content";
+import type { Locale } from "@/lib/content";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -14,6 +16,9 @@ export default function Home({ params }: Props) {
 
   // Enable static rendering for this page.
   setRequestLocale(locale);
+
+  // Fetch all published entries for this locale (server-side).
+  const entries = use(getAllEntries(locale as Locale));
 
   return (
     <div className="min-h-screen bg-background">
@@ -28,7 +33,7 @@ export default function Home({ params }: Props) {
           {/* Center feed */}
           <main className="space-y-4">
             <ProfileHeader />
-            <FeedWithTimeline />
+            <FeedWithTimeline entries={entries} />
           </main>
 
           {/* Right rail */}

@@ -1,0 +1,16 @@
+{
+  "id": "c1",
+  "type": "PROJECT",
+  "variant": "default",
+  "slug": "calm-ops",
+  "locale": "en",
+  "status": "published",
+  "publishedAt": "2026-01-28T09:00:00Z",
+  "title": "Case Study: Calm Ops",
+  "summary": "Redesigned incident workflows into a quiet, high-signal interface with clear ownership and next actions.",
+  "tags": ["UX", "Systems", "Ops"],
+  "hero": { "kind": "image", "src": "/thumb-case-study.svg", "alt": "Calm Ops case study thumbnail" },
+  "meta": {
+    "time": "Last week"
+  }
+}

@@ -144,6 +144,20 @@ This is the working task list for building the "social-profile portfolio" UI des
 
 ---
 
+## Git-Based CMS (Phase 1)
+
+- [x] Create folder structure (`content/entries/en`, `fr`, `_templates`) + TypeScript types + validation (`lib/content/`)
+- [x] Convert 12 seed items into per-file JSON entries (EN + FR)
+- [x] Build content loader (`getAllEntries`, `getEntryBySlug`, `getEntriesByType`, `getTimeline`, `getAllSlugs`) with React `cache()`
+- [x] Refactor `Feed.tsx`, `TimelineView.tsx`, `FeedWithTimeline.tsx`, pages to use loader instead of `seed.json` + translations
+- [x] Create detail page route `app/[locale]/[type]/[slug]/page.tsx` with `generateStaticParams` + `generateMetadata`
+- [x] Install `react-markdown`, create `Markdown.tsx`, render `entry.body` as Markdown on detail pages
+- [x] Link all feed cards to their detail pages
+- [x] Create entry template, `npm run new:entry` script, `docs/content-authoring.md`
+- [x] Delete `seed.json`, remove feed content keys from `messages/*.json`, keep `feed.actions` as UI chrome
+
+---
+
 ## Remaining / polish
 
 ### Responsive
@@ -189,7 +203,7 @@ npm run build
 ### i18n polish
 
 - [ ] Add additional locales if needed (e.g. Spanish, Portuguese)
-- [ ] Content management: consider CMS or external tool for non-dev translation updates
+- [x] Content management: file-based CMS implemented (content/entries/{locale}/*.json)
 - [ ] Verify French translations with a native speaker for natural phrasing
 
 ---
@@ -199,4 +213,4 @@ npm run build
 - Real authentication / "Follow" backend
 - Real messaging system
 - Real AI integration (LLM, streaming, tools, memory)
-- CMS integration for posts/projects
+- ~~CMS integration for posts/projects~~ (done — file-based CMS)

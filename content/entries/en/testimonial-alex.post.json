@@ -1,0 +1,16 @@
+{
+  "id": "x1",
+  "type": "POST",
+  "variant": "testimonial",
+  "slug": "testimonial-alex",
+  "locale": "en",
+  "status": "published",
+  "publishedAt": "2026-01-22T15:00:00Z",
+  "tags": ["testimonial"],
+  "meta": {
+    "from": "Alex R.",
+    "role": "Product Lead",
+    "time": "2 weeks ago",
+    "comment": "Rare combo of taste + engineering. The work shipped fast, stayed stable, and felt premium from day one."
+  }
+}

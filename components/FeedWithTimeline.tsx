@@ -1,16 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import { useTranslations } from "next-intl";
 import { FeedToggle, type ViewMode } from "./FeedToggle";
 import { Feed } from "./Feed";
 import { TimelineView } from "./TimelineView";
+import type { Entry } from "@/lib/content/types";
 
 /**
  * FeedWithTimeline — wraps Feed and TimelineView with a toggle.
  * Client component because it manages view-mode state.
+ * Receives entries from the server parent and passes them through.
  */
-export function FeedWithTimeline() {
+export function FeedWithTimeline({ entries }: { entries: Entry[] }) {
   const [mode, setMode] = useState<ViewMode>("feed");
 
   return (
@@ -21,7 +22,11 @@ export function FeedWithTimeline() {
       </div>
 
       {/* Render active view */}
-      {mode === "feed" ? <Feed /> : <TimelineView />}
+      {mode === "feed" ? (
+        <Feed entries={entries} />
+      ) : (
+        <TimelineView entries={entries} />
+      )}
     </div>
   );
 }

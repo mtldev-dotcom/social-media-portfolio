@@ -1,0 +1,16 @@
+{
+  "id": "x1",
+  "type": "POST",
+  "variant": "testimonial",
+  "slug": "testimonial-alex",
+  "locale": "fr",
+  "status": "published",
+  "publishedAt": "2026-01-22T15:00:00Z",
+  "tags": ["témoignage"],
+  "meta": {
+    "from": "Alex R.",
+    "role": "Chef de produit",
+    "time": "Il y a 2 semaines",
+    "comment": "Combinaison rare de goût et d'ingénierie. Le travail a été livré rapidement, est resté stable et a semblé premium dès le premier jour."
+  }
+}

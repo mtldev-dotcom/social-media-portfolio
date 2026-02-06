@@ -1,0 +1,22 @@
+{
+  "id": "e1",
+  "type": "STORY",
+  "variant": "default",
+  "slug": "creative-technologist",
+  "locale": "en",
+  "status": "published",
+  "publishedAt": "2023-01-01T00:00:00Z",
+  "title": "Creative Technologist",
+  "summary": "Independent · Client work",
+  "tags": ["career", "creative-tech"],
+  "meta": {
+    "role": "Creative Technologist",
+    "org": "Independent · Client work",
+    "time": "2023 — Present",
+    "bullets": [
+      "Built AI + automation systems focused on reliability, repeatability, and measurable ROI.",
+      "Created editorial-grade product surfaces and interaction patterns for high-trust interfaces.",
+      "Delivered end-to-end: concept → prototype → production with clean DX."
+    ]
+  }
+}

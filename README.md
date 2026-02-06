@@ -50,6 +50,7 @@ Open [http://localhost:3000](http://localhost:3000) — you will be redirected t
 | `npm run build` | Production build |
 | `npm run start` | Serve production build |
 | `npm run lint` | Run ESLint |
+| `npm run new:entry` | Create a new content entry (interactive) |
 
 ## Project Structure
 
@@ -62,6 +63,7 @@ app/
     about/page.tsx       # Static profile snapshot
     lab/page.tsx         # Experiments & tools
     notes/page.tsx       # Filtered feed (NOTE type)
+    [type]/[slug]/page.tsx  # Detail page for any entry
 
 i18n/
   routing.ts             # Locale list + default locale
@@ -69,15 +71,18 @@ i18n/
   navigation.ts          # Locale-aware Link, useRouter, usePathname
 
 messages/
-  en.json                # English translations (all UI + content)
-  fr.json                # French translations (all UI + content)
+  en.json                # English UI translations (nav, buttons, labels)
+  fr.json                # French UI translations
 
 components/
   ui/                    # Primitives: Card, Button, Tag
   icons.tsx              # Inline SVG icons (grayscale)
   ProfileHeader.tsx
   LeftNav.tsx            # Icon navigation (Home, About, Lab, Notes) + theme/lang toggles
-  Feed.tsx               # Social feed with typed post variants
+  Feed.tsx               # Social feed (receives entries from CMS loader)
+  TimelineView.tsx       # Year-grouped timeline view
+  FeedWithTimeline.tsx   # Feed/Timeline toggle wrapper
+  Markdown.tsx           # Markdown renderer for entry bodies
   RightRail.tsx          # Profile summary, stats, skills
   ChatPanel.tsx          # AI Guide placeholder (client component)
   ThemeToggle.tsx        # Dark/light toggle (client component)
@@ -106,8 +111,23 @@ docs/
   abandoned.md           # "Things I abandoned" tone doc
   motion.md              # Motion/animation rules
 
+lib/
+  content/
+    types.ts             # Entry, EntryType, Locale types
+    validate.ts          # Lightweight entry validation
+    loader.ts            # File-system content loader (server-only)
+    index.ts             # Barrel export with React cache() wrappers
+
 content/
-  seed.json              # Structured feed data (12 items, 6 types)
+  entries/
+    en/*.json            # English content entries (one per file)
+    fr/*.json            # French content entries (linked by id)
+  _templates/
+    entry.template.json  # Blank entry template
+  README.md              # Authoring rules
+
+scripts/
+  new-entry.mjs          # Interactive entry creation script
 ```
 
 ## Internationalization (i18n)
@@ -147,6 +167,7 @@ Tokens are defined in `app/globals.css` under `:root` (dark default) and `html[d
 - [Content Strategy](docs/content-enhance.md) — content taxonomy, tone rules, build plan
 - [Vision](docs/vision.md) — site purpose and positioning
 - [Content Types](docs/content-types.md) — content taxonomy (POST, PROJECT, NOTE, EXPERIMENT, STORY, ACTIVITY)
+- [Content Authoring](docs/content-authoring.md) — how to add/edit content entries
 
 ## Deploy
 
