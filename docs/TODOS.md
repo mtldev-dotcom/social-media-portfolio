@@ -135,8 +135,8 @@ This is the working task list for building the "social-profile portfolio" UI des
 
 ### Phase 7 — Content Maintenance
 
-- [ ] Document writing flow (adding content < 60s)
-- [ ] Create Footer.tsx with "living document" note
+- [x] Document writing flow (JSON seed + translation keys; < 60s to add new item)
+- [x] Create Footer.tsx with "living document" note (rendered in root layout)
 
 ### Phase 8 — Connection to aiaa.dev
 

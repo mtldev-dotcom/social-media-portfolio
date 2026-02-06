@@ -161,6 +161,10 @@
     "switchToEn": "Switch to English",
     "switchToFr": "Passer au français"
   },
+  "footer": {
+    "livingDoc": "cette page est un document vivant.",
+    "changesOften": "elle change souvent."
+  },
   "about": {
     "title": "À propos",
     "heading": "Nicky Bruno",

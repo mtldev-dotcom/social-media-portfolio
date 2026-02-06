@@ -100,6 +100,11 @@ docs/
   layout.md              # Layout contract (desktop/mobile)
   cards.md               # Card system spec
   voice.md               # Tone and writing rules
+  ai-guide.md            # AI Guide scope rules
+  lab.md                 # Lab section spec
+  timeline.md            # Timeline mode spec
+  abandoned.md           # "Things I abandoned" tone doc
+  motion.md              # Motion/animation rules
 
 content/
   seed.json              # Structured feed data (12 items, 6 types)
