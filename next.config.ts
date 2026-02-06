@@ -2,7 +2,8 @@ import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  /* Standalone output for Docker deployments (copies only needed files). */
+  output: "standalone",
 };
 
 /**
