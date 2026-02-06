@@ -16,6 +16,9 @@
     "react-dom": "19.2.3",
     "react-markdown": "^10.1.0"
   },
+  "overrides": {
+    "@swc/helpers": "0.5.18"
+  },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
