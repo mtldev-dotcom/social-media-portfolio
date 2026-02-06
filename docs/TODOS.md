@@ -86,6 +86,62 @@ This is the working task list for building the "social-profile portfolio" UI des
 
 ---
 
+## Content Enhancement (from content-enhance.md)
+
+### Phase 0 — Frame the Site
+
+- [x] Create `/docs/vision.md` (site purpose statement)
+- [x] Create `/docs/content-types.md` (POST, PROJECT, NOTE, EXPERIMENT, STORY, ACTIVITY)
+
+### Phase 1 — Information Architecture
+
+- [ ] Create `/docs/feed-model.md` (feed-first rules)
+- [ ] Overhaul navigation: Home, About, Lab, Notes (remove Search, Projects, Experience, Testimonials, Settings)
+- [ ] Create new routes: `/about`, `/lab`, `/notes`
+- [ ] Update icons + translations for new nav
+
+### Phase 2 — UI Structure
+
+- [ ] Create `/docs/layout.md` (layout contract)
+- [ ] Create `/docs/cards.md` (card system spec)
+- [ ] Add visible type labels to feed cards
+
+### Phase 3 — Copy & Content
+
+- [ ] Create `/docs/voice.md` (tone rules)
+- [ ] Update profile header copy (tagline, status; remove CTA buttons)
+- [ ] Create `/content/seed.json` with 10+ items
+- [ ] Refactor Feed.tsx to use seed data + new content types
+- [ ] Add translations for all new feed items
+
+### Phase 4 — AI Guide
+
+- [ ] Update AI Guide copy in translation files
+- [ ] Create `/docs/ai-guide.md` (scope rules)
+
+### Phase 5 — Fun / Flex Features
+
+- [ ] Create `/docs/lab.md` + Lab page + LabCard component
+- [ ] Create `/docs/timeline.md` + TimelineView toggle
+- [ ] Create `/docs/abandoned.md` (tone doc)
+
+### Phase 6 — Visual & UX Polish
+
+- [ ] Audit palette for violations
+- [ ] Create `/docs/motion.md` (motion rules)
+- [ ] Add `prefers-reduced-motion` CSS
+
+### Phase 7 — Content Maintenance
+
+- [ ] Document writing flow (adding content < 60s)
+- [ ] Create Footer.tsx with "living document" note
+
+### Phase 8 — Connection to aiaa.dev
+
+- [ ] Add discreet soft link to aiaa.dev in footer
+
+---
+
 ## Remaining / polish
 
 ### Responsive

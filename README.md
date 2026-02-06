@@ -125,6 +125,8 @@ Tokens are defined in `app/globals.css` under `:root` (dark default) and `html[d
 - [Design Context](docs/CONTEXT.md) — product concept, visual rules, layout spec, i18n architecture
 - [TODOs](docs/TODOS.md) — implementation checklist
 - [Content Strategy](docs/content-enhance.md) — content taxonomy, tone rules, build plan
+- [Vision](docs/vision.md) — site purpose and positioning
+- [Content Types](docs/content-types.md) — content taxonomy (POST, PROJECT, NOTE, EXPERIMENT, STORY, ACTIVITY)
 
 ## Deploy
 
