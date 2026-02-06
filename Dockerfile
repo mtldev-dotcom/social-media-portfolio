@@ -15,7 +15,7 @@ RUN npm run build
 FROM node:22-alpine AS runner
 WORKDIR /app
 ENV NODE_ENV=production
-ENV PORT=3000
+ENV PORT=3005
 
 # Copy only what's needed to run
 COPY --from=builder /app/public ./public
@@ -25,5 +25,5 @@ COPY --from=builder /app/.next/static ./.next/static
 # Content entries needed at runtime for the filesystem loader
 COPY --from=builder /app/content ./content
 
-EXPOSE 3000
+EXPOSE 3005
 CMD ["node", "server.js"]

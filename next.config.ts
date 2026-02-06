@@ -4,6 +4,10 @@ import createNextIntlPlugin from "next-intl/plugin";
 const nextConfig: NextConfig = {
   /* Standalone output for Docker deployments (copies only needed files). */
   output: "standalone",
+  /* Include @swc/helpers in standalone trace (SWC-injected runtime dep, often missed). */
+  outputFileTracingIncludes: {
+    "/*": ["./node_modules/@swc/helpers/**/*"],
+  },
 };
 
 /**
