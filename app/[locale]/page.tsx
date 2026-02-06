@@ -4,8 +4,8 @@ import { FeedWithTimeline } from "@/components/FeedWithTimeline";
 import { LeftNav } from "@/components/LeftNav";
 import { ProfileHeader } from "@/components/ProfileHeader";
 import { RightRail } from "@/components/RightRail";
-import { getAllEntries } from "@/lib/content";
-import type { Locale } from "@/lib/content";
+import { getAllEntries } from "@/lib/payload";
+import type { Locale } from "@/lib/payload";
 
 type Props = {
   params: Promise<{ locale: string }>;

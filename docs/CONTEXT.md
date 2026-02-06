@@ -2,9 +2,9 @@
 
 ## Product concept
 
-This project is a **modern personal portfolio website designed as a social media profile page** — a hybrid of **LinkedIn + Instagram + X (Twitter) + Facebook**, reimagined as a high-end personal brand platform.
+This project is a **professional personal blog** with the same 3-column, social-profile-inspired layout — powered by **Payload CMS** as a headless CMS. Content (posts, notes, experiments) and comments are managed in Payload Admin; the frontend reads from the Payload Local API.
 
-The goal is for the site to feel like a **living profile** (posts, activity, proof, social credibility) rather than a traditional "portfolio landing page".
+The goal is for the site to feel like a **living profile** (blog feed, activity, proof) while being a full blog with drafts, localization (EN/FR), and native comments.
 
 ---
 

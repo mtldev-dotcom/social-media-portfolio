@@ -12,19 +12,22 @@ import { Link } from "@/i18n/navigation";
 import {
   getEntryBySlug,
   getAllSlugs,
-  ENTRY_TYPES,
-} from "@/lib/content";
-import type { Entry, EntryType, Locale } from "@/lib/content";
+  BLOG_ENTRY_TYPES,
+} from "@/lib/payload";
+import type { BlogEntry, BlogEntryType, Locale } from "@/lib/payload";
 import { routing } from "@/i18n/routing";
+import { Comments } from "@/components/Comments";
 
 type Props = {
   params: Promise<{ locale: string; type: string; slug: string }>;
 };
 
-/** Map lowercase URL type to uppercase EntryType. */
-function parseType(raw: string): EntryType | null {
+/** Map lowercase URL type to BlogEntryType (post, note, experiment only). */
+function parseType(raw: string): BlogEntryType | null {
   const upper = raw.toUpperCase();
-  return ENTRY_TYPES.includes(upper as EntryType) ? (upper as EntryType) : null;
+  return (BLOG_ENTRY_TYPES as readonly string[]).includes(upper)
+    ? (upper as BlogEntryType)
+    : null;
 }
 
 /**
@@ -99,6 +102,11 @@ export default function EntryDetailPage({ params }: Props) {
             </Link>
 
             <EntryDetail entry={entry} />
+            <Comments
+              postId={entry.type === "POST" ? entry.id : undefined}
+              noteId={entry.type === "NOTE" ? entry.id : undefined}
+              locale={locale}
+            />
           </main>
 
           <div className="md:pl-0">
@@ -111,20 +119,18 @@ export default function EntryDetailPage({ params }: Props) {
 }
 
 /**
- * EntryDetail — renders full entry content based on type.
+ * EntryDetail — renders full entry content (post, note, experiment).
  */
-function EntryDetail({ entry }: { entry: Entry }) {
-  const meta = entry.meta ?? {};
+function EntryDetail({ entry }: { entry: BlogEntry }) {
+  const meta = (entry.meta ?? {}) as Record<string, unknown>;
 
   return (
     <Card>
       <CardBody className="space-y-4 pt-5">
-        {/* Type label */}
         <span className="inline-block rounded-md bg-surface-2 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-foreground/50">
           {entry.type}
         </span>
 
-        {/* Hero image */}
         {entry.hero && (
           <div className="relative aspect-[16/9] w-full overflow-hidden rounded-lg border border-divider bg-surface-2">
             <Image
@@ -136,16 +142,13 @@ function EntryDetail({ entry }: { entry: Entry }) {
           </div>
         )}
 
-        {/* Title */}
         {entry.title && (
           <h1 className="font-display text-xl font-bold tracking-tight text-foreground">
             {entry.title}
           </h1>
         )}
 
-        {/* Meta line */}
         <div className="flex flex-wrap items-center gap-2 text-xs text-muted-2">
-          {(meta.time as string) && <span>{meta.time as string}</span>}
           {entry.publishedAt && (
             <span>
               {new Date(entry.publishedAt).toLocaleDateString(entry.locale, {
@@ -157,43 +160,22 @@ function EntryDetail({ entry }: { entry: Entry }) {
           )}
         </div>
 
-        {/* Summary */}
         {entry.summary && (
           <p className="text-sm leading-relaxed text-muted">{entry.summary}</p>
         )}
 
-        {/* Type-specific content */}
         <TypeSpecificContent entry={entry} />
 
-        {/* Body (Markdown) */}
         {entry.body && (
           <div className="border-t border-divider pt-4">
             <Markdown content={entry.body} />
           </div>
         )}
 
-        {/* Tags */}
         {(entry.tags ?? []).length > 0 && (
           <div className="flex flex-wrap gap-2 border-t border-divider pt-4">
             {(entry.tags ?? []).map((tag) => (
               <Tag key={tag}>{tag}</Tag>
-            ))}
-          </div>
-        )}
-
-        {/* Links */}
-        {(entry.links ?? []).length > 0 && (
-          <div className="flex flex-wrap gap-3 text-sm">
-            {(entry.links ?? []).map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-accent hover:underline"
-              >
-                {link.label}
-              </a>
             ))}
           </div>
         )}
@@ -203,96 +185,30 @@ function EntryDetail({ entry }: { entry: Entry }) {
 }
 
 /**
- * Renders type-specific sections (testimonial info, story bullets, experiment fields, etc.)
+ * Renders type-specific sections (experiment meta: what, why, learned).
  */
-function TypeSpecificContent({ entry }: { entry: Entry }) {
-  const meta = entry.meta ?? {};
+function TypeSpecificContent({ entry }: { entry: BlogEntry }) {
+  const meta = (entry.meta ?? {}) as { what?: string; why?: string; learned?: string };
 
-  switch (entry.type) {
-    case "POST":
-      if (entry.variant === "testimonial") {
-        return (
-          <div className="flex items-start gap-3 rounded-lg bg-surface-2 p-4">
-            <div className="h-9 w-9 shrink-0 rounded-full border border-divider bg-surface-1" />
-            <div>
-              <p className="text-sm font-medium text-foreground">
-                {meta.from as string}
-              </p>
-              <p className="text-xs text-muted">{meta.role as string}</p>
-              <p className="mt-2 text-sm italic text-foreground/80">
-                &ldquo;{meta.comment as string}&rdquo;
-              </p>
-            </div>
-          </div>
-        );
-      }
-      return null;
-
-    case "STORY": {
-      const bullets = (meta.bullets as string[]) ?? [];
-      return (
-        <div>
-          <p className="text-sm font-medium text-foreground">
-            {meta.role as string}
+  if (entry.type === "EXPERIMENT" && (meta.what || meta.why || meta.learned)) {
+    return (
+      <div className="space-y-2 text-sm leading-relaxed">
+        {meta.what && <p className="text-foreground/80">{meta.what}</p>}
+        {meta.why && (
+          <p className="text-muted">
+            <span className="font-medium text-foreground/60">why — </span>
+            {meta.why}
           </p>
-          <p className="text-xs text-muted">{meta.org as string}</p>
-          {bullets.length > 0 && (
-            <ul className="mt-3 space-y-2 text-sm leading-relaxed">
-              {bullets.map((b) => (
-                <li key={b} className="flex gap-2">
-                  <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-foreground/40" />
-                  <span className="text-muted">{b}</span>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-      );
-    }
-
-    case "EXPERIMENT":
-      return (
-        <div className="space-y-2 text-sm leading-relaxed">
-          {(meta.what as string) && (
-            <p className="text-foreground/80">{meta.what as string}</p>
-          )}
-          {(meta.why as string) && (
-            <p className="text-muted">
-              <span className="font-medium text-foreground/60">why — </span>
-              {meta.why as string}
-            </p>
-          )}
-          {(meta.learned as string) && (
-            <p className="text-muted">
-              <span className="font-medium text-foreground/60">learned — </span>
-              {meta.learned as string}
-            </p>
-          )}
-        </div>
-      );
-
-    case "ACTIVITY":
-      if (entry.variant === "building") {
-        const stack = (meta.stack as string[]) ?? [];
-        return (
-          <div className="flex flex-wrap gap-2">
-            {stack.map((s) => (
-              <Tag key={s}>{s}</Tag>
-            ))}
-          </div>
-        );
-      }
-      if (entry.variant === "status") {
-        return (
-          <div className="flex items-center justify-between gap-3 rounded-lg bg-surface-2 p-4">
-            <p className="text-sm text-muted">{meta.label as string}</p>
-            <p className="text-sm text-foreground">{meta.value as string}</p>
-          </div>
-        );
-      }
-      return null;
-
-    default:
-      return null;
+        )}
+        {meta.learned && (
+          <p className="text-muted">
+            <span className="font-medium text-foreground/60">learned — </span>
+            {meta.learned}
+          </p>
+        )}
+      </div>
+    );
   }
+
+  return null;
 }

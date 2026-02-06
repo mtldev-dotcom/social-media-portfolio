@@ -21,6 +21,13 @@ export function Footer() {
         >
           {t("seriousLink")}
         </a>
+        {" · "}
+        <a
+          href="/admin"
+          className="transition-colors hover:text-foreground/50"
+        >
+          {t("admin")}
+        </a>
       </p>
     </footer>
   );

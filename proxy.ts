@@ -14,8 +14,8 @@ export default createMiddleware(routing);
 export const config = {
   /*
    * Match all pathnames EXCEPT:
-   * - /api, /trpc, /_next, /_vercel  (internal routes)
+   * - /api, /admin, /trpc, /_next, /_vercel  (internal routes; admin = Payload CMS)
    * - Paths containing a dot (static assets like favicon.ico, images, etc.)
    */
-  matcher: "/((?!api|trpc|_next|_vercel|.*\\..*).*)",
+  matcher: "/((?!api|admin|trpc|_next|_vercel|.*\\..*).*)",
 };

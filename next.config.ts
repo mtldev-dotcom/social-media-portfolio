@@ -1,4 +1,6 @@
+import path from "path";
 import type { NextConfig } from "next";
+import { withPayload } from "@payloadcms/next/withPayload";
 import createNextIntlPlugin from "next-intl/plugin";
 
 const nextConfig: NextConfig = {
@@ -8,6 +10,23 @@ const nextConfig: NextConfig = {
   outputFileTracingIncludes: {
     "/*": ["./node_modules/@swc/helpers/**/*"],
   },
+  /* Dedupe React so single context; resolve @payload-config. (Do not alias @payloadcms/ui — breaks /shared subpath.) */
+  webpack: (config) => {
+    const cwd = process.cwd();
+    config.resolve ??= {};
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      "@payload-config": path.resolve(cwd, "payload.config.ts"),
+      react: path.resolve(cwd, "node_modules/react"),
+      "react-dom": path.resolve(cwd, "node_modules/react-dom"),
+    };
+    return config;
+  },
+  turbopack: {
+    resolveAlias: {
+      "@payload-config": "./payload.config.ts",
+    },
+  },
 };
 
 /**
@@ -16,4 +35,5 @@ const nextConfig: NextConfig = {
  */
 const withNextIntl = createNextIntlPlugin();
 
-export default withNextIntl(nextConfig);
+/** Payload plugin must wrap the final config for DB/Next compatibility. */
+export default withPayload(withNextIntl(nextConfig));

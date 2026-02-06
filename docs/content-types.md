@@ -1,35 +1,35 @@
-# Content Types
+# Content Types (Payload Collections)
 
-Every piece of content on the site is one of these types.
+Every piece of blog content on the site comes from one of these Payload collections.
 
 ---
 
 ## Taxonomy
 
-| Type         | Description                                  |
-|--------------|----------------------------------------------|
-| POST         | Short thoughts, notes, opinions              |
-| PROJECT      | Things I built (polished or not)             |
-| NOTE         | Learnings, reflections, reminders            |
-| EXPERIMENT   | Tools, playgrounds, weird ideas              |
-| STORY        | Timeline / experience / background           |
-| ACTIVITY     | Status updates, availability, changes        |
+| Collection   | URL type   | Description                                  |
+|--------------|------------|----------------------------------------------|
+| **Posts**    | `post`     | Blog posts — short or long-form, Markdown body |
+| **Notes**    | `note`     | Learnings, reflections, reminders           |
+| **Experiments** | `experiment` | Lab: tools, playgrounds, weird ideas       |
+
+Comments are stored in the **Comments** collection and linked to a Post (or optionally a Note). Media (hero images) use the **Media** collection.
 
 ---
 
-## Required fields
+## Common fields (Posts, Notes, Experiments)
 
-Each item must have:
-
-- **type** — one of the types above
-- **timestamp** — ISO 8601 date string
-- **optional tags** — array of short labels (e.g. `["ai", "automation"]`)
-- **optional media** — path or URL to an image/video/demo
+- **title**, **slug** — localized (en, fr)
+- **body** — Markdown; localized
+- **publishedAt** — required; used for sorting and timeline
+- **updatedAt** — optional
+- **tags** — array of strings
+- **hero** — optional upload (relation to Media)
+- **status** — draft or published (Payload `_status`); only published is shown on the site
 
 ---
 
 ## Notes
 
-- Types are uppercase by convention in data; rendered as lowercase labels in the UI.
-- The feed renders all types in a single chronological stream.
-- Filters (e.g. "Notes only") are views on the same feed, not separate pages.
+- Types are uppercase in code (POST, NOTE, EXPERIMENT); URLs use lowercase (`post`, `note`, `experiment`).
+- The feed merges all three collections and sorts by `publishedAt` descending.
+- Lab page shows only Experiments; Notes page shows only Notes.

@@ -6,6 +6,7 @@ import { getMessages, getTranslations, setRequestLocale } from "next-intl/server
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { Footer } from "@/components/Footer";
+import { SetLang } from "@/components/SetLang";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -52,36 +53,30 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 /**
- * Root layout wrapped in the [locale] dynamic segment.
- * - Validates the locale from the URL; returns 404 for unsupported locales.
- * - Provides translations to client components via NextIntlClientProvider.
- * - Sets the html lang attribute dynamically for SEO.
- * - Persists the user's theme preference via inline script (no flash).
+ * Locale layout — root <html>/<body> live in app/layout.tsx so Payload routes share the doc.
+ * - Validates locale; 404 if unsupported.
+ * - SetLang sets document.documentElement.lang for SEO.
+ * - Theme script persists preference (no flash).
  */
 export default async function LocaleLayout({ children, params }: Props) {
   const { locale } = await params;
 
-  // Validate locale; 404 if not in our supported list.
   if (!hasLocale(routing.locales, locale)) {
     notFound();
   }
 
-  // Enable static rendering for this locale.
   setRequestLocale(locale);
-
-  // Load all translations for the current locale (passed to client provider).
   const messages = await getMessages();
 
   return (
-    <html lang={locale} data-theme="dark" suppressHydrationWarning>
-      <head>
-        {/*
-          Apply persisted theme preference ASAP to reduce flash.
-          Preconditions: localStorage may be unavailable; falls back to default dark.
-        */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function () {
+    <>
+      <SetLang lang={locale} />
+      {/*
+        Apply persisted theme preference ASAP to reduce flash.
+      */}
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `(function () {
   try {
     var t = localStorage.getItem("theme");
     if (t === "light" || t === "dark") {
@@ -89,10 +84,9 @@ export default async function LocaleLayout({ children, params }: Props) {
     }
   } catch (e) {}
 })();`,
-          }}
-        />
-      </head>
-      <body
+        }}
+      />
+      <div
         className={`${inter.variable} ${spaceGrotesk.variable} antialiased`}
       >
         <NextIntlClientProvider messages={messages}>
@@ -101,7 +95,7 @@ export default async function LocaleLayout({ children, params }: Props) {
             <Footer />
           </div>
         </NextIntlClientProvider>
-      </body>
-    </html>
+      </div>
+    </>
   );
 }

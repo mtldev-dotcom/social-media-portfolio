@@ -1,16 +1,15 @@
 import { Card, CardBody } from "./ui/Card";
 import { Tag } from "./ui/Tag";
 import { Link } from "@/i18n/navigation";
-import type { Entry } from "@/lib/content/types";
+import type { BlogEntry } from "@/lib/payload";
 
 /**
  * TimelineView — groups entries by year.
- * Receives entries as a prop (already fetched by server parent).
- * Doubles as a CV / career overview.
+ * Receives entries as a prop (already fetched from Payload).
  */
-export function TimelineView({ entries }: { entries: Entry[] }) {
+export function TimelineView({ entries }: { entries: BlogEntry[] }) {
   /* Group by year */
-  const grouped: Record<number, Entry[]> = {};
+  const grouped: Record<number, BlogEntry[]> = {};
   for (const entry of entries) {
     const year = new Date(entry.publishedAt).getFullYear();
     if (!grouped[year]) grouped[year] = [];
@@ -43,8 +42,15 @@ export function TimelineView({ entries }: { entries: Entry[] }) {
 /**
  * TimelineEntry — compact card for a single timeline item.
  */
-function TimelineEntry({ entry }: { entry: Entry }) {
+function TimelineEntry({ entry }: { entry: BlogEntry }) {
   const title = getTitle(entry);
+  const dateStr = entry.publishedAt
+    ? new Date(entry.publishedAt).toLocaleDateString(entry.locale, {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      })
+    : "";
 
   return (
     <Card>
@@ -62,9 +68,7 @@ function TimelineEntry({ entry }: { entry: Entry }) {
               {title}
             </Link>
           </p>
-          <p className="mt-0.5 text-xs text-muted-2">
-            {(entry.meta?.time as string) ?? ""}
-          </p>
+          <p className="mt-0.5 text-xs text-muted-2">{dateStr}</p>
         </div>
 
         {(entry.tags ?? []).length > 0 && (
@@ -80,27 +84,15 @@ function TimelineEntry({ entry }: { entry: Entry }) {
 }
 
 /** Extracts a display title from the entry. */
-function getTitle(entry: Entry): string {
-  const meta = entry.meta ?? {};
+function getTitle(entry: BlogEntry): string {
   switch (entry.type) {
     case "POST":
-      if (entry.variant === "testimonial") {
-        const comment = (meta.comment as string) ?? "";
-        return `${meta.from ?? ""} — "${comment}"`.slice(0, 80);
-      }
-      return (entry.body ?? "").slice(0, 80) + (entry.body && entry.body.length > 80 ? "…" : "");
-    case "PROJECT":
-      return entry.title ?? entry.slug;
-    case "STORY":
-      return `${meta.role ?? ""} · ${meta.org ?? ""}`;
+      return (entry.body ?? entry.title ?? entry.slug).slice(0, 80) +
+        ((entry.body && entry.body.length > 80) ? "…" : "");
     case "NOTE":
-      return entry.title ?? entry.slug;
     case "EXPERIMENT":
       return entry.title ?? entry.slug;
-    case "ACTIVITY":
-      if (entry.variant === "building") return entry.title ?? entry.slug;
-      return (meta.value as string) ?? entry.slug;
     default:
-      return entry.slug;
+      return entry.title ?? entry.slug;
   }
 }

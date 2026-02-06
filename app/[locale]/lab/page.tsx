@@ -5,16 +5,16 @@ import { LeftNav } from "@/components/LeftNav";
 import { RightRail } from "@/components/RightRail";
 import { Card, CardBody, CardHeader } from "@/components/ui/Card";
 import { Link } from "@/i18n/navigation";
-import { getEntriesByType } from "@/lib/content";
-import type { Entry, Locale } from "@/lib/content";
+import { getEntriesByType } from "@/lib/payload";
+import type { BlogEntry, Locale } from "@/lib/payload";
 
 type Props = {
   params: Promise<{ locale: string }>;
 };
 
 /**
- * Lab page — experiments, tools, interactive demos, unfinished ideas.
- * Reads EXPERIMENT entries from the file-based CMS.
+ * Lab page — experiments, tools, interactive demos.
+ * Reads EXPERIMENT entries from Payload CMS.
  */
 export default function LabPage({ params }: Props) {
   const { locale } = use(params);
@@ -41,8 +41,9 @@ export default function LabPage({ params }: Props) {
   );
 }
 
-function LabContent({ experiments }: { experiments: Entry[] }) {
+function LabContent({ experiments }: { experiments: BlogEntry[] }) {
   const tLab = useTranslations("lab");
+  const meta = (entry: BlogEntry) => (entry.meta ?? {}) as { what?: string; why?: string; learned?: string };
 
   return (
     <>
@@ -66,11 +67,17 @@ function LabContent({ experiments }: { experiments: Entry[] }) {
                 EXPERIMENT
               </span>
               <p className="text-xs text-muted-2">
-                {(entry.meta?.time as string) ?? ""}
+                {entry.publishedAt
+                  ? new Date(entry.publishedAt).toLocaleDateString(entry.locale, {
+                      year: "numeric",
+                      month: "short",
+                      day: "numeric",
+                    })
+                  : ""}
               </p>
               <h3 className="mt-2 font-display text-base tracking-tight text-foreground">
                 <Link
-                  href={`/experiment/${entry.slug}`}
+                  href={`/${entry.type.toLowerCase()}/${entry.slug}`}
                   className="transition-colors hover:text-accent"
                 >
                   {entry.title}
@@ -78,15 +85,15 @@ function LabContent({ experiments }: { experiments: Entry[] }) {
               </h3>
               <div className="mt-3 space-y-2 text-sm leading-relaxed">
                 <p className="text-foreground/80">
-                  {(entry.meta?.what as string) ?? entry.body}
+                  {meta(entry).what ?? entry.body}
                 </p>
                 <p className="text-muted">
                   <span className="font-medium text-foreground/60">why — </span>
-                  {(entry.meta?.why as string) ?? ""}
+                  {meta(entry).why ?? ""}
                 </p>
                 <p className="text-muted">
                   <span className="font-medium text-foreground/60">learned — </span>
-                  {(entry.meta?.learned as string) ?? ""}
+                  {meta(entry).learned ?? ""}
                 </p>
               </div>
             </CardBody>

@@ -1,33 +1,19 @@
-# Content Directory
+# Content (Payload CMS)
 
-File-based CMS for nickybruno.com.
+Blog content is **no longer stored in this folder**. The site uses [Payload CMS](https://payloadcms.com) as a headless CMS.
 
-## Structure
+## Where content lives
 
-```
-content/
-  entries/
-    en/           # One JSON file per entry (English)
-    fr/           # One JSON file per entry (French)
-  _templates/
-    entry.template.json
-```
+- **Posts, Notes, Experiments, Comments, Media, Users**: managed in the Payload Admin panel at **`/admin`**.
+- **Localization**: Posts, Notes, and Experiments support English and French; edit each locale in the admin.
+- **Drafts**: content with status "draft" is hidden from the public site until published.
 
-## Rules
+## Creating and editing content
 
-- **One entry per file.**
-- **Stable `id`**: same `id` in both `en/` and `fr/` links translations.
-- **Slugs are unique** per locale + type.
-- **Naming convention**: `{slug}.{type-lowercase}.json` (e.g. `automation-studio.project.json`)
-- **Required fields**: `id`, `type`, `slug`, `locale`, `status`, `publishedAt`
-- **Draft filtering**: entries with `status: "draft"` are hidden from public views.
-- **Body**: Markdown string for long-form content.
+1. Open [http://localhost:3000/admin](http://localhost:3000/admin) (or your deployed `/admin` URL).
+2. Log in with your Payload user.
+3. Use **Posts**, **Notes**, or **Experiments** to create or edit entries. Set slug, title, body (Markdown), publishedAt, tags, and optional hero image.
+4. Use **Media** to upload images.
+5. Use **Comments** to approve or reject comments on posts and notes.
 
-## Adding a new entry
-
-1. Copy `_templates/entry.template.json`
-2. Fill in the required fields
-3. Save to `entries/en/` (and `entries/fr/` for the translation)
-4. Set `status: "published"` when ready
-
-Or run: `npm run new:entry`
+The `content/entries/` folder (if present) is **legacy** from the previous file-based CMS and is not read by the app. You can archive or delete it.

@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "title": "Nicky Bruno | Portfolio",
-    "description": "Un portfolio de profil inspiré de Facebook pour Nicky Bruno (Technologue créatif · IA et Automatisation)."
+    "title": "Nicky Bruno | Blog",
+    "description": "Blog personnel de Nicky Bruno — Technologue créatif · IA et Automatisation. Billets, notes et expériences."
   },
   "nav": {
     "primary": "Principal",
@@ -74,7 +74,8 @@
   "footer": {
     "livingDoc": "cette page est un document vivant.",
     "changesOften": "elle change souvent.",
-    "seriousLink": "travaille sur des choses plus s\u00e9rieuses \u2192 aiaa.dev"
+    "seriousLink": "travaille sur des choses plus s\u00e9rieuses \u2192 aiaa.dev",
+    "admin": "Admin"
   },
   "about": {
     "title": "À propos",

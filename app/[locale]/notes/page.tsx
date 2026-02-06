@@ -5,8 +5,8 @@ import { LeftNav } from "@/components/LeftNav";
 import { RightRail } from "@/components/RightRail";
 import { Card, CardBody, CardHeader } from "@/components/ui/Card";
 import { Link } from "@/i18n/navigation";
-import { getEntriesByType } from "@/lib/content";
-import type { Entry, Locale } from "@/lib/content";
+import { getEntriesByType } from "@/lib/payload";
+import type { BlogEntry, Locale } from "@/lib/payload";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -14,7 +14,7 @@ type Props = {
 
 /**
  * Notes page — filtered feed showing NOTE-type content only.
- * Reads NOTE entries from the file-based CMS.
+ * Reads NOTE entries from Payload CMS.
  */
 export default function NotesPage({ params }: Props) {
   const { locale } = use(params);
@@ -41,7 +41,7 @@ export default function NotesPage({ params }: Props) {
   );
 }
 
-function NotesContent({ notes }: { notes: Entry[] }) {
+function NotesContent({ notes }: { notes: BlogEntry[] }) {
   const tNotes = useTranslations("notes");
 
   return (
@@ -66,11 +66,17 @@ function NotesContent({ notes }: { notes: Entry[] }) {
                 NOTE
               </span>
               <p className="text-xs text-muted-2">
-                {(entry.meta?.time as string) ?? ""}
+                {entry.publishedAt
+                  ? new Date(entry.publishedAt).toLocaleDateString(entry.locale, {
+                      year: "numeric",
+                      month: "short",
+                      day: "numeric",
+                    })
+                  : ""}
               </p>
               <h3 className="mt-2 font-display text-base tracking-tight text-foreground">
                 <Link
-                  href={`/note/${entry.slug}`}
+                  href={`/${entry.type.toLowerCase()}/${entry.slug}`}
                   className="transition-colors hover:text-accent"
                 >
                   {entry.title}
