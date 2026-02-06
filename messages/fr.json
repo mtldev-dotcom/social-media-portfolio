@@ -163,7 +163,8 @@
   },
   "footer": {
     "livingDoc": "cette page est un document vivant.",
-    "changesOften": "elle change souvent."
+    "changesOften": "elle change souvent.",
+    "seriousLink": "travaille sur des choses plus s\u00e9rieuses \u2192 aiaa.dev"
   },
   "about": {
     "title": "À propos",

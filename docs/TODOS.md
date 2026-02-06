@@ -140,7 +140,7 @@ This is the working task list for building the "social-profile portfolio" UI des
 
 ### Phase 8 — Connection to aiaa.dev
 
-- [ ] Add discreet soft link to aiaa.dev in footer
+- [x] Add discreet soft link to aiaa.dev in footer (no tracking, no emphasis, no pitch)
 
 ---
 

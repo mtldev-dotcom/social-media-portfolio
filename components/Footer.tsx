@@ -2,8 +2,8 @@ import { useTranslations } from "next-intl";
 
 /**
  * Footer — minimal site footer.
- * Shows "this page is a living document" note.
- * Gives permission to iterate and evolve the site forever.
+ * Shows "this page is a living document" note + discreet link to aiaa.dev.
+ * No tracking, no emphasis, no pitch.
  */
 export function Footer() {
   const t = useTranslations("footer");
@@ -12,6 +12,16 @@ export function Footer() {
     <footer className="mt-8 border-t border-divider py-6 text-center">
       <p className="text-xs text-foreground/40">{t("livingDoc")}</p>
       <p className="mt-1 text-xs text-foreground/40">{t("changesOften")}</p>
+      <p className="mt-4 text-xs text-foreground/30">
+        <a
+          href="https://aiaa.dev"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="transition-colors hover:text-foreground/50"
+        >
+          {t("seriousLink")}
+        </a>
+      </p>
     </footer>
   );
 }

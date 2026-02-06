@@ -134,10 +134,10 @@ Three-column desktop layout:
 | Avatar | Circular, neutral placeholder |
 | Verified badge | Blue checkmark |
 | Name | **Nicky Bruno** |
-| Headline | **Creative Technologist · AI & Automation** |
+| Headline | **creative technologist · ai & automation** |
+| Tagline | **i build calm systems. sometimes i write about them.** |
 | Location | **Montreal · Remote** |
-| Status | **Available for projects** |
-| Primary buttons | **Follow**, **Contact**, **Book a Call** (blue accent) |
+| Status | **currently building · experimenting · available to chat** |
 
 ---
 
@@ -191,6 +191,13 @@ npm run build    # Production build
 
 ---
 
+## Footer
+
+- "This page is a living document. It changes often."
+- Discreet soft link to `aiaa.dev` — no tracking, no emphasis, no pitch.
+
+---
+
 ## Acceptance criteria (visual)
 
 - The page reads as a **social profile** first, portfolio second.
@@ -200,3 +207,6 @@ npm run build    # Production build
 - Theme toggle works instantly; preference persists across sessions with no flash.
 - Language switcher toggles between English and French; locale persists in URL and cookie.
 - All text content is fully localized — no hardcoded strings in components.
+- Feed/Timeline toggle switches between chronological and year-grouped views.
+- Lab and Notes pages render filtered content from seed data.
+- `prefers-reduced-motion` is respected (all animations/transitions disabled).
