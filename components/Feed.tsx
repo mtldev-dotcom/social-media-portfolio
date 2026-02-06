@@ -16,6 +16,31 @@ type FeedItemMeta =
   | { id: string; kind: "status" };
 
 /**
+ * Maps the internal kind to the public content-type label.
+ * See /docs/content-types.md for the full taxonomy.
+ */
+const KIND_TO_LABEL: Record<FeedItemMeta["kind"], string> = {
+  text: "POST",
+  project: "PROJECT",
+  experience: "STORY",
+  testimonial: "POST",
+  building: "ACTIVITY",
+  status: "ACTIVITY",
+};
+
+/**
+ * TypeLabel — small uppercase badge shown at the top of every card.
+ * Helps the reader scan and mentally filter content.
+ */
+function TypeLabel({ kind }: { kind: FeedItemMeta["kind"] }) {
+  return (
+    <span className="mb-2 inline-block rounded-md bg-surface-2 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-foreground/50">
+      {KIND_TO_LABEL[kind]}
+    </span>
+  );
+}
+
+/**
  * Feed
  * - Preconditions: Contains stacked card-based posts with social spacing.
  * - Postconditions: Renders a mix of requested post types (X/IG/LinkedIn-inspired).
@@ -47,6 +72,7 @@ export function Feed() {
             return (
               <Card key={item.id}>
                 <CardBody className="pt-5">
+                  <TypeLabel kind={item.kind} />
                   <div className="flex items-start justify-between gap-4">
                     <div className="min-w-0">
                       <p className="text-sm text-foreground/90">
@@ -73,6 +99,9 @@ export function Feed() {
             const tags = t.raw(`${item.id}.tags`) as string[];
             return (
               <Card key={item.id} className="overflow-hidden">
+                <div className="px-5 pt-5">
+                  <TypeLabel kind={item.kind} />
+                </div>
                 <div className="relative aspect-[16/9] w-full border-b border-divider bg-surface-2">
                   <Image
                     src={item.thumbSrc}
@@ -108,6 +137,7 @@ export function Feed() {
             return (
               <Card key={item.id}>
                 <CardBody className="pt-5">
+                  <TypeLabel kind={item.kind} />
                   <p className="text-xs text-muted-2">{t(`${item.id}.time`)}</p>
                   <h3 className="mt-2 font-display text-base tracking-tight text-foreground">
                     {t(`${item.id}.role`)}
@@ -134,6 +164,7 @@ export function Feed() {
             return (
               <Card key={item.id}>
                 <CardBody className="pt-5">
+                  <TypeLabel kind={item.kind} />
                   <p className="text-xs text-muted-2">{t(`${item.id}.time`)}</p>
                   <div className="mt-3 flex items-start gap-3">
                     <div className="h-9 w-9 rounded-full border border-divider bg-surface-2" />
@@ -159,6 +190,7 @@ export function Feed() {
             return (
               <Card key={item.id}>
                 <CardBody className="pt-5">
+                  <TypeLabel kind={item.kind} />
                   <p className="text-xs text-muted-2">{t(`${item.id}.time`)}</p>
                   <h3 className="mt-2 font-display text-base tracking-tight text-foreground">
                     {t(`${item.id}.title`)}
@@ -180,6 +212,7 @@ export function Feed() {
             return (
               <Card key={item.id}>
                 <CardBody className="pt-5">
+                  <TypeLabel kind={item.kind} />
                   <p className="text-xs text-muted-2">{t(`${item.id}.time`)}</p>
                   <div className="mt-3 flex items-center justify-between gap-3">
                     <p className="text-sm text-muted">{t(`${item.id}.label`)}</p>

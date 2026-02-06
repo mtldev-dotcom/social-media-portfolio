@@ -103,9 +103,9 @@ This is the working task list for building the "social-profile portfolio" UI des
 
 ### Phase 2 — UI Structure
 
-- [ ] Create `/docs/layout.md` (layout contract)
-- [ ] Create `/docs/cards.md` (card system spec)
-- [ ] Add visible type labels to feed cards
+- [x] Create `/docs/layout.md` (layout contract)
+- [x] Create `/docs/cards.md` (card system spec)
+- [x] Add visible type labels to feed cards (POST, PROJECT, STORY, ACTIVITY)
 
 ### Phase 3 — Copy & Content
 
