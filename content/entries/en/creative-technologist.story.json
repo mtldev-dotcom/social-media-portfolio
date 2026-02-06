@@ -8,7 +8,10 @@
   "publishedAt": "2023-01-01T00:00:00Z",
   "title": "Creative Technologist",
   "summary": "Independent · Client work",
-  "tags": ["career", "creative-tech"],
+  "tags": [
+    "career",
+    "creative-tech"
+  ],
   "meta": {
     "role": "Creative Technologist",
     "org": "Independent · Client work",

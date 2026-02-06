@@ -8,7 +8,10 @@
   "publishedAt": "2023-01-01T00:00:00Z",
   "title": "Technologue créatif",
   "summary": "Indépendant · Travail client",
-  "tags": ["carrière", "tech-créatif"],
+  "tags": [
+    "carrière",
+    "tech-créatif"
+  ],
   "meta": {
     "role": "Technologue créatif",
     "org": "Indépendant · Travail client",

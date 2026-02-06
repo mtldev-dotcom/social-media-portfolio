@@ -8,8 +8,16 @@
   "publishedAt": "2026-02-04T10:00:00Z",
   "title": "Studio d'Automatisation",
   "summary": "Un tableau de bord premium pour concevoir et surveiller des automatisations assistées par IA avec des contrôles humains.",
-  "tags": ["IA", "Automatisation", "Observabilité"],
-  "hero": { "kind": "image", "src": "/thumb-automation.svg", "alt": "Miniature Studio d'Automatisation" },
+  "tags": [
+    "IA",
+    "Automatisation",
+    "Observabilité"
+  ],
+  "hero": {
+    "kind": "image",
+    "src": "/thumb-automation.svg",
+    "alt": "Miniature Studio d'Automatisation"
+  },
   "meta": {
     "time": "Hier"
   }

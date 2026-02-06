@@ -8,12 +8,19 @@
   "publishedAt": "2026-02-05T14:00:00Z",
   "title": "Nicky Bruno",
   "body": "Shipping an AI-first automation layer for teams that want calm, reliable workflows — no hype, just systems that stay up.",
-  "tags": ["ai", "automation"],
+  "tags": [
+    "ai",
+    "automation"
+  ],
   "meta": {
     "author": "Nicky Bruno",
     "handle": "@nickybruno",
     "time": "2h",
-    "stats": { "replies": 12, "reposts": 7, "likes": 148 },
+    "stats": {
+      "replies": 12,
+      "reposts": 7,
+      "likes": 148
+    },
     "repliesLabel": "Replies",
     "repostsLabel": "Reposts",
     "likesLabel": "Likes"

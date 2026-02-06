@@ -20,7 +20,7 @@ export default function AboutPage({ params }: Props) {
   setRequestLocale(locale);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
       <div className="mx-auto w-full max-w-[1260px] px-4 py-6">
         <div className="grid grid-cols-1 gap-4 md:grid-cols-[72px_minmax(0,1fr)_360px]">
           {/* Left icon navigation */}
@@ -57,7 +57,7 @@ function AboutContent() {
           {/* Avatar */}
           <div className="relative h-20 w-20 shrink-0">
             <Image
-              src="/avatar-nicky.svg"
+              src="/profile-nick-picture.png"
               alt={t("heading")}
               width={80}
               height={80}

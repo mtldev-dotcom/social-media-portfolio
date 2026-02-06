@@ -17,14 +17,16 @@
 
   /* Core surfaces (similar to Facebook dark UI). */
   --app-bg: #18191a;
-  --surface-1: #242526; /* cards */
-  --surface-2: #2d2e30; /* subtle elevated */
+  --surface-1: #242526;
+  /* cards */
+  --surface-2: #2d2e30;
+  /* subtle elevated */
   --surface-1-glass: rgba(36, 37, 38, 0.78);
   --surface-2-glass: rgba(45, 46, 48, 0.76);
 
-  /* Borders/dividers */
-  --divider: rgba(255, 255, 255, 0.12);
-  --divider-strong: rgba(255, 255, 255, 0.18);
+  /* Borders/dividers (blue) */
+  --divider: rgba(24, 119, 242, 0.25);
+  --divider-strong: rgba(24, 119, 242, 0.38);
 
   /* Text */
   --text-primary: #e4e6eb;
@@ -61,9 +63,9 @@ html[data-theme="light"] {
   --surface-1-glass: rgba(255, 255, 255, 0.78);
   --surface-2-glass: rgba(245, 246, 247, 0.76);
 
-  /* Dividers are darker in light mode for visibility. */
-  --divider: rgba(0, 0, 0, 0.1);
-  --divider-strong: rgba(0, 0, 0, 0.16);
+  /* Dividers are blue in light mode too. */
+  --divider: rgba(24, 119, 242, 0.22);
+  --divider-strong: rgba(24, 119, 242, 0.35);
 
   /* Text */
   --text-primary: #111418;
@@ -116,9 +118,9 @@ html[data-theme="light"] {
 body {
   /*
    * Base app styling.
-   * Error paths: if fonts fail to load, browser falls back to system UI fonts.
+   * Background image is fullscreen, fixed, and theme-aware.
    */
-  background: var(--app-bg);
+  background: var(--app-bg) url("/bg-dark.png") center / cover no-repeat fixed;
   color: var(--text-primary);
   font-family:
     var(--font-sans),
@@ -133,6 +135,11 @@ body {
     "Segoe UI Emoji";
 }
 
+/* Swap background image for light mode. */
+html[data-theme="light"] body {
+  background-image: url("/bg-light.png");
+}
+
 html {
   /* Hint to the UA that we are dark-first. */
   color-scheme: dark;
@@ -143,6 +150,24 @@ html[data-theme="light"] {
 }
 
 /*
+ * Smooth theme transition.
+ * The .theme-transitioning class is added by ThemeToggle.tsx during the switch
+ * and removed after the transition completes. This prevents the transition
+ * from firing on initial page load.
+ */
+html.theme-transitioning,
+html.theme-transitioning *,
+html.theme-transitioning *::before,
+html.theme-transitioning *::after {
+  transition:
+    background-color 400ms ease,
+    color 400ms ease,
+    border-color 400ms ease,
+    box-shadow 400ms ease,
+    background-image 400ms ease !important;
+}
+
+/*
  * Reusable component-like utilities.
  * We keep these minimal to preserve Tailwind-as-API while enabling
  * a coherent "flat + subtle glass" design language.
@@ -150,66 +175,80 @@ html[data-theme="light"] {
 @layer components {
   .card {
     background: var(--surface-1);
-    border: 1px solid var(--divider);
+    border: 1.5px solid var(--divider);
     box-shadow: var(--shadow-1);
     border-radius: 1rem;
   }
 
   .card-glass {
     background: var(--surface-1-glass);
-    border: 1px solid var(--divider);
+    border: 1.5px solid var(--divider);
     box-shadow: var(--shadow-1);
     border-radius: 1rem;
     backdrop-filter: blur(10px);
   }
 
   .divider {
-    height: 1px;
+    height: 1.5px;
     background: var(--divider);
   }
+}
 
-  /* Minimal prose styles for Markdown content on detail pages. */
-  .prose-custom {
-    font-size: 0.9375rem;
-    line-height: 1.7;
-    color: var(--text-secondary);
+/* Thicker blue borders globally for all elements using border-divider. */
+@layer utilities {
+  .border-divider {
+    border-width: 1.5px;
   }
-  .prose-custom p {
-    margin-bottom: 1em;
-  }
-  .prose-custom h1,
-  .prose-custom h2,
-  .prose-custom h3 {
-    color: var(--text-primary);
-    font-weight: 600;
-    margin-top: 1.5em;
-    margin-bottom: 0.5em;
-  }
-  .prose-custom a {
-    color: var(--fb-blue);
-    text-decoration: underline;
-    text-underline-offset: 2px;
-  }
-  .prose-custom ul,
-  .prose-custom ol {
-    padding-left: 1.25em;
-    margin-bottom: 1em;
-  }
-  .prose-custom li {
-    margin-bottom: 0.25em;
-  }
-  .prose-custom code {
-    background: var(--surface-2);
-    padding: 0.15em 0.35em;
-    border-radius: 0.25rem;
-    font-size: 0.875em;
-  }
-  .prose-custom blockquote {
-    border-left: 3px solid var(--divider-strong);
-    padding-left: 1em;
-    margin: 1em 0;
-    color: var(--text-tertiary);
-  }
+}
+
+/* Minimal prose styles for Markdown content on detail pages. */
+.prose-custom {
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+.prose-custom p {
+  margin-bottom: 1em;
+}
+
+.prose-custom h1,
+.prose-custom h2,
+.prose-custom h3 {
+  color: var(--text-primary);
+  font-weight: 600;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+.prose-custom a {
+  color: var(--fb-blue);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.prose-custom ul,
+.prose-custom ol {
+  padding-left: 1.25em;
+  margin-bottom: 1em;
+}
+
+.prose-custom li {
+  margin-bottom: 0.25em;
+}
+
+.prose-custom code {
+  background: var(--surface-2);
+  padding: 0.15em 0.35em;
+  border-radius: 0.25rem;
+  font-size: 0.875em;
+}
+
+.prose-custom blockquote {
+  border-left: 3px solid var(--divider-strong);
+  padding-left: 1em;
+  margin: 1em 0;
+  color: var(--text-tertiary);
 }
 
 ::selection {
@@ -227,6 +266,7 @@ html[data-theme="light"] {
  * See /docs/motion.md for the full motion ruleset.
  */
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {

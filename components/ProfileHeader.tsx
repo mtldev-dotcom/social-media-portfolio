@@ -22,7 +22,7 @@ export function ProfileHeader() {
           {/* Avatar */}
           <div className="relative h-20 w-20 overflow-hidden rounded-full border border-divider bg-surface-1 shadow-card">
             <Image
-              src="/avatar-nicky.svg"
+              src="/profile-nick-picture.png"
               alt={t("avatarAlt")}
               fill
               className="object-cover"

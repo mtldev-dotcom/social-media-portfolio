@@ -8,7 +8,10 @@
   "publishedAt": "2026-02-03T08:00:00Z",
   "title": "on building calm tools",
   "body": "most tools try to do too much. the best ones stay out of your way. i keep coming back to that when i design anything — what can i remove?",
-  "tags": ["ai", "reflection"],
+  "tags": [
+    "ai",
+    "reflection"
+  ],
   "meta": {
     "time": "2 days ago"
   }

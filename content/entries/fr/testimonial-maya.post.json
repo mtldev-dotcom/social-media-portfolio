@@ -6,7 +6,9 @@
   "locale": "fr",
   "status": "published",
   "publishedAt": "2026-01-05T11:00:00Z",
-  "tags": ["témoignage"],
+  "tags": [
+    "témoignage"
+  ],
   "meta": {
     "from": "Maya S.",
     "role": "Fondatrice",

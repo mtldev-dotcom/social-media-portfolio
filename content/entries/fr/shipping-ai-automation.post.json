@@ -8,12 +8,19 @@
   "publishedAt": "2026-02-05T14:00:00Z",
   "title": "Nicky Bruno",
   "body": "Je développe une couche d'automatisation IA pour les équipes qui veulent des flux de travail calmes et fiables — pas de battage, juste des systèmes qui restent en marche.",
-  "tags": ["ia", "automatisation"],
+  "tags": [
+    "ia",
+    "automatisation"
+  ],
   "meta": {
     "author": "Nicky Bruno",
     "handle": "@nickybruno",
     "time": "2h",
-    "stats": { "replies": 12, "reposts": 7, "likes": 148 },
+    "stats": {
+      "replies": 12,
+      "reposts": 7,
+      "likes": 148
+    },
     "repliesLabel": "Réponses",
     "repostsLabel": "Repartages",
     "likesLabel": "J'aime"

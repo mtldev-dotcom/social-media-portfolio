@@ -8,7 +8,10 @@
   "publishedAt": "2025-12-10T10:00:00Z",
   "title": "exécuteur de tâches cli",
   "body": "un petit CLI qui lit un fichier de tâches YAML et exécute les étapes avec des tentatives et de la journalisation.",
-  "tags": ["cli", "automatisation"],
+  "tags": [
+    "cli",
+    "automatisation"
+  ],
   "meta": {
     "time": "déc. 2025",
     "what": "un petit CLI qui lit un fichier de tâches YAML et exécute les étapes avec des tentatives et de la journalisation.",

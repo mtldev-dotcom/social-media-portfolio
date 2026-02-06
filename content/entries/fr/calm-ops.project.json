@@ -8,8 +8,16 @@
   "publishedAt": "2026-01-28T09:00:00Z",
   "title": "Étude de cas : Calm Ops",
   "summary": "Refonte des flux d'incidents en une interface calme et à haut signal avec une responsabilité claire et des prochaines actions.",
-  "tags": ["UX", "Systèmes", "Ops"],
-  "hero": { "kind": "image", "src": "/thumb-case-study.svg", "alt": "Miniature étude de cas Calm Ops" },
+  "tags": [
+    "UX",
+    "Systèmes",
+    "Ops"
+  ],
+  "hero": {
+    "kind": "image",
+    "src": "/thumb-case-study.svg",
+    "alt": "Miniature étude de cas Calm Ops"
+  },
   "meta": {
     "time": "La semaine dernière"
   }

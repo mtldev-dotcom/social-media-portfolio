@@ -9,7 +9,7 @@ export function Footer() {
   const t = useTranslations("footer");
 
   return (
-    <footer className="mt-8 border-t border-divider py-6 text-center">
+    <footer className="mt-8 py-6 text-center">
       <p className="text-xs text-foreground/40">{t("livingDoc")}</p>
       <p className="mt-1 text-xs text-foreground/40">{t("changesOften")}</p>
       <p className="mt-4 text-xs text-foreground/30">

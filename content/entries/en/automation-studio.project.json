@@ -8,8 +8,16 @@
   "publishedAt": "2026-02-04T10:00:00Z",
   "title": "Automation Studio",
   "summary": "A premium dashboard for designing and monitoring AI-assisted automations with human-in-the-loop controls.",
-  "tags": ["AI", "Automation", "Observability"],
-  "hero": { "kind": "image", "src": "/thumb-automation.svg", "alt": "Automation Studio thumbnail" },
+  "tags": [
+    "AI",
+    "Automation",
+    "Observability"
+  ],
+  "hero": {
+    "kind": "image",
+    "src": "/thumb-automation.svg",
+    "alt": "Automation Studio thumbnail"
+  },
   "meta": {
     "time": "Yesterday"
   }

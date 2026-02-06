@@ -8,7 +8,10 @@
   "publishedAt": "2026-01-20T14:00:00Z",
   "title": "bac à sable de chaînage de prompts",
   "body": "un petit bac à sable pour tester visuellement des chaînes de prompts IA multi-étapes.",
-  "tags": ["ia", "terrain-de-jeu"],
+  "tags": [
+    "ia",
+    "terrain-de-jeu"
+  ],
   "meta": {
     "time": "il y a 2 semaines",
     "what": "un petit bac à sable pour tester visuellement des chaînes de prompts IA multi-étapes.",

@@ -21,7 +21,7 @@ export default function Home({ params }: Props) {
   const entries = use(getAllEntries(locale as Locale));
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
       <div className="mx-auto w-full max-w-[1260px] px-4 py-6">
         {/* Desktop 3-column layout */}
         <div className="grid grid-cols-1 gap-4 md:grid-cols-[72px_minmax(0,1fr)_360px]">

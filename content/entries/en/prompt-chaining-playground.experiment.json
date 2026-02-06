@@ -8,7 +8,10 @@
   "publishedAt": "2026-01-20T14:00:00Z",
   "title": "prompt chaining playground",
   "body": "a small sandbox for testing multi-step AI prompt chains visually.",
-  "tags": ["ai", "playground"],
+  "tags": [
+    "ai",
+    "playground"
+  ],
   "meta": {
     "time": "2 weeks ago",
     "what": "a small sandbox for testing multi-step AI prompt chains visually.",

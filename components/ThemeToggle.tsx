@@ -68,8 +68,17 @@ export function ThemeToggle({
 
   function toggle() {
     const next: Theme = theme === "dark" ? "light" : "dark";
+
+    // Enable smooth transition, then apply theme.
+    document.documentElement.classList.add("theme-transitioning");
     setTheme(next);
     applyTheme(next);
+
+    // Remove class after transition completes to avoid
+    // transitions firing on unrelated DOM changes.
+    setTimeout(() => {
+      document.documentElement.classList.remove("theme-transitioning");
+    }, 450);
   }
 
   const isDark = theme === "dark";

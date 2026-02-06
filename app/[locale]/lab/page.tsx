@@ -23,7 +23,7 @@ export default function LabPage({ params }: Props) {
   const experiments = use(getEntriesByType(locale as Locale, "EXPERIMENT"));
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
       <div className="mx-auto w-full max-w-[1260px] px-4 py-6">
         <div className="grid grid-cols-1 gap-4 md:grid-cols-[72px_minmax(0,1fr)_360px]">
           <div className="md:pr-0">

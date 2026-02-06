@@ -8,7 +8,10 @@
   "publishedAt": "2025-12-10T10:00:00Z",
   "title": "cli task runner",
   "body": "a tiny CLI that reads a YAML task file and runs steps with retries and logging.",
-  "tags": ["cli", "automation"],
+  "tags": [
+    "cli",
+    "automation"
+  ],
   "meta": {
     "time": "Dec 2025",
     "what": "a tiny CLI that reads a YAML task file and runs steps with retries and logging.",

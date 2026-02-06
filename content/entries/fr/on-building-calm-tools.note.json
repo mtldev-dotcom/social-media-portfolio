@@ -8,7 +8,10 @@
   "publishedAt": "2026-02-03T08:00:00Z",
   "title": "sur la construction d'outils calmes",
   "body": "la plupart des outils essaient d'en faire trop. les meilleurs restent discrets. j'y reviens toujours quand je conçois quelque chose — qu'est-ce que je peux enlever ?",
-  "tags": ["ia", "réflexion"],
+  "tags": [
+    "ia",
+    "réflexion"
+  ],
   "meta": {
     "time": "il y a 2 jours"
   }
