@@ -14,12 +14,10 @@
     "name": "Nicky Bruno",
     "avatarAlt": "Nicky Bruno avatar",
     "verified": "Verified",
-    "headline": "Creative Technologist · AI & Automation",
+    "headline": "creative technologist · ai & automation",
+    "tagline": "i build calm systems.\nsometimes i write about them.",
     "location": "Montreal · Remote",
-    "status": "Available for projects",
-    "follow": "Follow",
-    "contact": "Contact",
-    "bookCall": "Book a Call"
+    "status": "currently building · experimenting · available to chat"
   },
   "feed": {
     "t1": {
@@ -87,6 +85,30 @@
       "role": "Founder",
       "time": "1 month ago",
       "comment": "Clear thinking, calm delivery, and excellent automation instincts. Everything came with a plan and a test story."
+    },
+    "n1": {
+      "title": "on building calm tools",
+      "body": "most tools try to do too much. the best ones stay out of your way. i keep coming back to that when i design anything — what can i remove?",
+      "time": "2 days ago"
+    },
+    "n2": {
+      "title": "dx matters more than you think",
+      "body": "if the developer experience is bad, the product will be bad. clean APIs, honest error messages, fast feedback loops — that's the foundation.",
+      "time": "3 weeks ago"
+    },
+    "exp1": {
+      "title": "prompt chaining playground",
+      "what": "a small sandbox for testing multi-step AI prompt chains visually.",
+      "why": "i wanted to see how prompts compose before wiring them into production.",
+      "learned": "sequential chains are fragile. branching and fallback paths matter more than the happy path.",
+      "time": "2 weeks ago"
+    },
+    "exp2": {
+      "title": "cli task runner",
+      "what": "a tiny CLI that reads a YAML task file and runs steps with retries and logging.",
+      "why": "i kept writing the same bash scripts. this replaces them with something testable.",
+      "learned": "YAML is fine for config but terrible for logic. keep task definitions declarative.",
+      "time": "Dec 2025"
     },
     "actions": {
       "reply": "Reply",

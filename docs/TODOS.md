@@ -109,11 +109,11 @@ This is the working task list for building the "social-profile portfolio" UI des
 
 ### Phase 3 — Copy & Content
 
-- [ ] Create `/docs/voice.md` (tone rules)
-- [ ] Update profile header copy (tagline, status; remove CTA buttons)
-- [ ] Create `/content/seed.json` with 10+ items
-- [ ] Refactor Feed.tsx to use seed data + new content types
-- [ ] Add translations for all new feed items
+- [x] Create `/docs/voice.md` (tone rules)
+- [x] Update profile header copy (tagline, status; removed Follow/Contact/Book a Call buttons)
+- [x] Create `/content/seed.json` with 12 items (3 POST, 2 PROJECT, 1 STORY, 2 ACTIVITY, 2 NOTE, 2 EXPERIMENT)
+- [x] Refactor Feed.tsx to use seed data + new content types (sorted by timestamp)
+- [x] Add translations for all new feed items (EN + FR)
 
 ### Phase 4 — AI Guide
 

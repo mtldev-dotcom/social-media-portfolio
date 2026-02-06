@@ -14,12 +14,10 @@
     "name": "Nicky Bruno",
     "avatarAlt": "Avatar de Nicky Bruno",
     "verified": "Vérifié",
-    "headline": "Technologue créatif · IA et Automatisation",
+    "headline": "technologue créatif · ia et automatisation",
+    "tagline": "je construis des systèmes calmes.\nparfois j'écris à leur sujet.",
     "location": "Montréal · Télétravail",
-    "status": "Disponible pour des projets",
-    "follow": "Suivre",
-    "contact": "Contact",
-    "bookCall": "Réserver un appel"
+    "status": "en construction · en expérimentation · disponible pour discuter"
   },
   "feed": {
     "t1": {
@@ -87,6 +85,30 @@
       "role": "Fondatrice",
       "time": "Il y a 1 mois",
       "comment": "Pensée claire, livraison calme et excellents instincts d'automatisation. Tout est venu avec un plan et un scénario de test."
+    },
+    "n1": {
+      "title": "sur la construction d'outils calmes",
+      "body": "la plupart des outils essaient d'en faire trop. les meilleurs restent discrets. j'y reviens toujours quand je conçois quelque chose — qu'est-ce que je peux enlever ?",
+      "time": "il y a 2 jours"
+    },
+    "n2": {
+      "title": "la dx compte plus qu'on ne le pense",
+      "body": "si l'expérience développeur est mauvaise, le produit sera mauvais. des API propres, des messages d'erreur honnêtes, des boucles de retour rapides — c'est la base.",
+      "time": "il y a 3 semaines"
+    },
+    "exp1": {
+      "title": "bac à sable de chaînage de prompts",
+      "what": "un petit bac à sable pour tester visuellement des chaînes de prompts IA multi-étapes.",
+      "why": "je voulais voir comment les prompts se composent avant de les brancher en production.",
+      "learned": "les chaînes séquentielles sont fragiles. les chemins de branchement et de repli comptent plus que le chemin heureux.",
+      "time": "il y a 2 semaines"
+    },
+    "exp2": {
+      "title": "exécuteur de tâches cli",
+      "what": "un petit CLI qui lit un fichier de tâches YAML et exécute les étapes avec des tentatives et de la journalisation.",
+      "why": "j'écrivais toujours les mêmes scripts bash. ceci les remplace par quelque chose de testable.",
+      "learned": "YAML est bien pour la config mais terrible pour la logique. garder les définitions de tâches déclaratives.",
+      "time": "déc. 2025"
     },
     "actions": {
       "reply": "Répondre",

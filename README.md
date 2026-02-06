@@ -13,7 +13,7 @@ A **modern personal portfolio website designed as a social media profile page** 
 - **Dark & light themes**: toggle persists to localStorage; no flash on reload
 - **Bilingual (EN/FR)**: route-based localization with automatic language detection and switcher
 - **Profile header**: avatar, verified badge, headline, location, status, action buttons
-- **Social feed cards**: text posts, project cards, experience/case studies, testimonials, "currently building", activity status
+- **Social feed cards**: POSTs, PROJECTs, STORYs, NOTEs, EXPERIMENTs, ACTIVITYs — seed data in `content/seed.json`
 - **Floating AI Guide panel**: UI-ready placeholder (no backend yet)
 - **Strict Facebook-inspired palette**: blue accent only; neutral surfaces; no gradients
 
@@ -94,6 +94,12 @@ docs/
   vision.md              # Site purpose + positioning
   content-types.md       # Content taxonomy
   feed-model.md          # Feed-first mental model
+  layout.md              # Layout contract (desktop/mobile)
+  cards.md               # Card system spec
+  voice.md               # Tone and writing rules
+
+content/
+  seed.json              # Structured feed data (12 items, 6 types)
 ```
 
 ## Internationalization (i18n)

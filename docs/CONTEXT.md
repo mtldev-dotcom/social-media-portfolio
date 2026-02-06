@@ -143,16 +143,18 @@ Three-column desktop layout:
 
 ## Feed content types
 
-The main feed includes these post styles:
+The main feed includes these content types (defined in `/docs/content-types.md`):
 
-- **Short text posts** — X/Twitter-style
-- **Project cards** — image thumbnail + tags (Instagram-inspired)
-- **Case study / experience posts** — role, org, bullets (LinkedIn-inspired)
-- **Testimonials** — displayed like social comments
-- **"Currently building"** — stack tags + summary
-- **Activity/status cards** — availability, updates
+| Type       | Style                         |
+|------------|-------------------------------|
+| POST       | Short text (X/Twitter) or testimonial |
+| PROJECT    | Image thumbnail + tags (Instagram-inspired) |
+| STORY      | Role, org, bullets (LinkedIn-inspired) |
+| NOTE       | Learning, reflection, or reminder |
+| EXPERIMENT | What / why / learned |
+| ACTIVITY   | Building status or availability update |
 
-Data is structured as typed local arrays in `components/Feed.tsx`; all text content is resolved from translation files (`messages/{locale}.json`).
+Data is structured in `content/seed.json`; text content is resolved from translation files (`messages/{locale}.json`).
 
 ---
 
