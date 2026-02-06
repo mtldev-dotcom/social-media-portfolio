@@ -129,9 +129,9 @@ This is the working task list for building the "social-profile portfolio" UI des
 
 ### Phase 6 — Visual & UX Polish
 
-- [ ] Audit palette for violations
-- [ ] Create `/docs/motion.md` (motion rules)
-- [ ] Add `prefers-reduced-motion` CSS
+- [x] Audit palette for violations (none found — palette is clean)
+- [x] Create `/docs/motion.md` (motion rules)
+- [x] Add `prefers-reduced-motion` CSS media query
 
 ### Phase 7 — Content Maintenance
 

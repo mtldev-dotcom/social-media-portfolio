@@ -177,3 +177,19 @@ html[data-theme="light"] {
   outline: 2px solid var(--focus-ring);
   outline-offset: 2px;
 }
+
+/*
+ * Reduced motion: disable all transitions and animations
+ * for users who prefer reduced motion (accessibility).
+ * See /docs/motion.md for the full motion ruleset.
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
