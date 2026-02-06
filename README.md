@@ -11,9 +11,10 @@ A **modern personal portfolio website designed as a social media profile page** 
 
 - **3-column desktop layout**: icon nav / social feed / profile rail + AI chat panel
 - **Dark & light themes**: toggle persists to localStorage; no flash on reload
+- **Bilingual (EN/FR)**: route-based localization with automatic language detection and switcher
 - **Profile header**: avatar, verified badge, headline, location, status, action buttons
 - **Social feed cards**: text posts, project cards, experience/case studies, testimonials, "currently building", activity status
-- **Floating AI chat panel**: UI-ready placeholder (no backend yet)
+- **Floating AI Guide panel**: UI-ready placeholder (no backend yet)
 - **Strict Facebook-inspired palette**: blue accent only; neutral surfaces; no gradients
 
 ## Tech Stack
@@ -23,6 +24,7 @@ A **modern personal portfolio website designed as a social media profile page** 
 | Framework | Next.js 16 (App Router) |
 | Language | TypeScript 5 |
 | Styling | Tailwind CSS v4 (CSS variable tokens) |
+| i18n | next-intl (route-based, EN/FR) |
 | Fonts | Inter, Space Grotesk (via `next/font/google`) |
 
 ## Getting Started
@@ -35,7 +37,7 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) to view the site.
+Open [http://localhost:3000](http://localhost:3000) — you will be redirected to `/en/` or `/fr/` based on your browser language.
 
 ## Scripts
 
@@ -50,19 +52,32 @@ Open [http://localhost:3000](http://localhost:3000) to view the site.
 
 ```
 app/
-  globals.css      # Design tokens (dark + light), Tailwind theme
-  layout.tsx       # Root layout, fonts, theme init script
-  page.tsx         # Main 3-column page
+  globals.css            # Design tokens (dark + light), Tailwind theme
+  [locale]/
+    layout.tsx           # Root layout, fonts, theme init, NextIntlClientProvider
+    page.tsx             # Main 3-column page
+
+i18n/
+  routing.ts             # Locale list + default locale
+  request.ts             # Server-side locale resolution + message loading
+  navigation.ts          # Locale-aware Link, useRouter, usePathname
+
+messages/
+  en.json                # English translations (all UI + content)
+  fr.json                # French translations (all UI + content)
 
 components/
-  ui/              # Primitives: Card, Button, Tag
-  icons.tsx        # Inline SVG icons (grayscale)
+  ui/                    # Primitives: Card, Button, Tag
+  icons.tsx              # Inline SVG icons (grayscale)
   ProfileHeader.tsx
-  LeftNav.tsx      # Icon navigation + theme toggle
-  Feed.tsx         # Social feed with typed post variants
-  RightRail.tsx    # Profile summary, stats, skills
-  ChatPanel.tsx    # AI chat placeholder (client component)
-  ThemeToggle.tsx  # Dark/light toggle (client component)
+  LeftNav.tsx            # Icon navigation + theme toggle + language switcher
+  Feed.tsx               # Social feed with typed post variants
+  RightRail.tsx          # Profile summary, stats, skills
+  ChatPanel.tsx          # AI Guide placeholder (client component)
+  ThemeToggle.tsx        # Dark/light toggle (client component)
+  LanguageSwitcher.tsx   # EN/FR locale toggle (client component)
+
+proxy.ts                 # Next.js 16 middleware (locale detection + redirects)
 
 public/
   avatar-nicky.svg
@@ -70,9 +85,23 @@ public/
   thumb-case-study.svg
 
 docs/
-  CONTEXT.md       # Design brief + constraints
-  TODOS.md         # Implementation checklist
+  CONTEXT.md             # Design brief + constraints
+  TODOS.md               # Implementation checklist
+  content-enhance.md     # Content strategy / build plan
 ```
+
+## Internationalization (i18n)
+
+The site is fully bilingual (English and French) using [next-intl](https://next-intl.dev/):
+
+- **Route-based**: `/en/` for English, `/fr/` for French
+- **Auto-detection**: visiting `/` redirects to the locale matching your browser's `Accept-Language` header
+- **Persistence**: locale preference is stored in a `NEXT_LOCALE` cookie
+- **Language switcher**: EN/FR toggle in the left nav sidebar
+- **Complete coverage**: all UI labels, feed content, profile text, stats, AI Guide, and SEO metadata are translated
+- **SEO**: `<html lang>` is set per locale; `<link rel="alternate" hreflang>` tags are generated automatically
+
+Translation files live in `messages/en.json` and `messages/fr.json`.
 
 ## Theme System
 
@@ -80,7 +109,7 @@ Tokens are defined in `app/globals.css` under `:root` (dark default) and `html[d
 
 1. Sets `data-theme` on `<html>`
 2. Persists choice to `localStorage`
-3. A tiny inline script in `layout.tsx` applies the stored theme before paint (no flash)
+3. A tiny inline script in `app/[locale]/layout.tsx` applies the stored theme before paint (no flash)
 
 ## Design Constraints
 
@@ -93,8 +122,9 @@ Tokens are defined in `app/globals.css` under `:root` (dark default) and `html[d
 
 ## Documentation
 
-- [Design Context](docs/CONTEXT.md) — product concept, visual rules, layout spec
+- [Design Context](docs/CONTEXT.md) — product concept, visual rules, layout spec, i18n architecture
 - [TODOs](docs/TODOS.md) — implementation checklist
+- [Content Strategy](docs/content-enhance.md) — content taxonomy, tone rules, build plan
 
 ## Deploy
 

@@ -64,6 +64,26 @@ This is the working task list for building the "social-profile portfolio" UI des
   - [x] Current build + activity
 - [x] Add neutral avatar and thumbnail placeholders (SVGs in `public/`)
 
+### Internationalization (i18n)
+
+- [x] Install and configure `next-intl` with `createNextIntlPlugin`
+- [x] Set up `i18n/routing.ts`, `i18n/request.ts`, `i18n/navigation.ts`
+- [x] Create `proxy.ts` (Next.js 16 middleware) for locale detection + redirects
+- [x] Restructure `app/` into `app/[locale]/` with locale-aware layout and page
+- [x] Create full translation files (`messages/en.json`, `messages/fr.json`)
+  - [x] Navigation labels
+  - [x] Profile header (name, headline, location, status, buttons)
+  - [x] All feed items (text posts, projects, experience, testimonials, building, status)
+  - [x] Right rail (profile summary, tech stack, stats)
+  - [x] AI Guide panel (renamed from "AI Concierge")
+  - [x] Theme toggle labels
+  - [x] SEO metadata (title, description)
+- [x] Update all components to use `useTranslations()` hooks — no hardcoded strings
+- [x] Build `LanguageSwitcher` component (EN/FR toggle in left nav)
+- [x] Add `generateStaticParams` for static rendering of both locales
+- [x] Add `generateMetadata` with locale-aware title, description, and `hreflang` links
+- [x] Verify build passes and both `/en` and `/fr` render correctly
+
 ---
 
 ## Remaining / polish
@@ -108,10 +128,17 @@ npm run build
 
 ---
 
+### i18n polish
+
+- [ ] Add additional locales if needed (e.g. Spanish, Portuguese)
+- [ ] Content management: consider CMS or external tool for non-dev translation updates
+- [ ] Verify French translations with a native speaker for natural phrasing
+
+---
+
 ## Not in scope (for now)
 
 - Real authentication / "Follow" backend
 - Real messaging system
 - Real AI integration (LLM, streaming, tools, memory)
 - CMS integration for posts/projects
-- Internationalization (copy is currently English-only)

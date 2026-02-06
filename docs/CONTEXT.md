@@ -43,7 +43,7 @@ Source of truth is `app/globals.css`:
 ### How the toggle works
 
 1. `components/ThemeToggle.tsx` (client component) toggles `data-theme` on `<html>` and saves to `localStorage`.
-2. `app/layout.tsx` includes an inline `<script>` that reads `localStorage` and sets `data-theme` **before paint** to avoid flash.
+2. `app/[locale]/layout.tsx` includes an inline `<script>` that reads `localStorage` and sets `data-theme` **before paint** to avoid flash.
 3. `html[data-theme="light"]` overrides CSS variables; entire UI updates instantly.
 
 ### Key tokens (both themes)
@@ -59,13 +59,64 @@ Source of truth is `app/globals.css`:
 
 ---
 
+## Internationalization (i18n)
+
+The app supports **English** and **French** via `next-intl` with route-based localization.
+
+### Routing
+
+- All pages live under `app/[locale]/` (e.g. `/en/`, `/fr/`).
+- `proxy.ts` (Next.js 16 middleware) handles automatic locale detection from the `Accept-Language` header, redirects bare `/` to the matched locale, and persists the choice in a `NEXT_LOCALE` cookie.
+- Invalid locales return a 404 via `notFound()`.
+
+### Configuration files
+
+| File | Purpose |
+|------|---------|
+| `i18n/routing.ts` | Defines supported locales (`en`, `fr`) and default locale (`en`) |
+| `i18n/request.ts` | Server-side locale resolution + loads `messages/{locale}.json` |
+| `i18n/navigation.ts` | Locale-aware wrappers for `Link`, `useRouter`, `usePathname` |
+| `proxy.ts` | Middleware for locale detection, redirects, cookie persistence |
+
+### Translation files
+
+All UI text and content lives in `messages/en.json` and `messages/fr.json`, organized by namespace:
+
+| Namespace | Covers |
+|-----------|--------|
+| `nav` | Navigation labels |
+| `profile` | Profile header (name, headline, location, status, buttons) |
+| `feed` | All feed items (posts, projects, experience, testimonials, building, status) |
+| `rightRail` | Profile summary, tech stack, stats |
+| `aiGuide` | AI Guide panel (title, messages, placeholder, inputs) |
+| `theme` | Theme toggle aria labels |
+| `metadata` | Page title + description |
+| `languageSwitcher` | Language toggle labels |
+
+### How components consume translations
+
+- **Server components** (LeftNav, Feed, ProfileHeader, RightRail): call `useTranslations('namespace')` directly.
+- **Client components** (ChatPanel, ThemeToggle, LanguageSwitcher): call `useTranslations('namespace')` — translations are delivered via `NextIntlClientProvider` in the root layout.
+- Arrays (tags, bullets, tech stack) use `t.raw('key')` to return raw JSON arrays.
+
+### Language switcher
+
+`components/LanguageSwitcher.tsx` is a client component in the left nav. It uses `useRouter().replace()` from `i18n/navigation.ts` to swap the locale segment in the URL without a full page reload.
+
+### SEO
+
+- `<html lang="...">` is set dynamically per locale.
+- `generateMetadata()` in the layout produces locale-aware `<title>`, `<meta description>`, and `<link rel="alternate" hreflang="...">` tags.
+
+---
+
 ## Layout (desktop-first)
 
 Three-column desktop layout:
 
 | Column | Content |
 |--------|---------|
-| **Left** | Minimal icon navigation (grayscale) + theme toggle |
+| **Left** | Minimal icon navigation (grayscale) + theme toggle + language switcher |
 | **Center** | Profile header + social feed (stacked cards) |
 | **Right** | Profile summary, stats, tech stack tags, floating AI chat panel |
 
@@ -101,7 +152,7 @@ The main feed includes these post styles:
 - **"Currently building"** — stack tags + summary
 - **Activity/status cards** — availability, updates
 
-Data is currently a typed local array in `components/Feed.tsx`.
+Data is structured as typed local arrays in `components/Feed.tsx`; all text content is resolved from translation files (`messages/{locale}.json`).
 
 ---
 
@@ -112,7 +163,7 @@ Data is currently a typed local array in `components/Feed.tsx`.
 | Body / UI | **Inter** (variable) |
 | Display / headings | **Space Grotesk** (variable) |
 
-Fonts are loaded via `next/font/google` in `app/layout.tsx` and exposed through CSS variables (`--font-inter`, `--font-space-grotesk`).
+Fonts are loaded via `next/font/google` in `app/[locale]/layout.tsx` and exposed through CSS variables (`--font-inter`, `--font-space-grotesk`).
 
 ---
 
@@ -123,6 +174,7 @@ Fonts are loaded via `next/font/google` in `app/layout.tsx` and exposed through 
 | Framework | Next.js 16 (App Router) |
 | Language | TypeScript 5 |
 | Styling | Tailwind CSS v4 (CSS variable tokens) |
+| i18n | next-intl (route-based, EN/FR) |
 | Fonts | Inter, Space Grotesk |
 
 ---
@@ -144,3 +196,5 @@ npm run build    # Production build
 - No gradients; no additional accent colors; no neon.
 - Cards feel premium: neutral surfaces, thin dividers, subtle shadow depth, optional soft glass effect.
 - Theme toggle works instantly; preference persists across sessions with no flash.
+- Language switcher toggles between English and French; locale persists in URL and cookie.
+- All text content is fully localized — no hardcoded strings in components.
