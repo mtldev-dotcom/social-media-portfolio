@@ -1,141 +1,42 @@
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { Card, CardBody } from "./ui/Card";
 import { Tag } from "./ui/Tag";
 
-type FeedItem =
-  | {
-      id: string;
-      kind: "text";
-      author: string;
-      handle: string;
-      time: string;
-      content: string;
-      stats: { replies: number; reposts: number; likes: number };
-    }
-  | {
-      id: string;
-      kind: "project";
-      title: string;
-      description: string;
-      thumbSrc: string;
-      tags: string[];
-      time: string;
-    }
-  | {
-      id: string;
-      kind: "experience";
-      role: string;
-      org: string;
-      time: string;
-      bullets: string[];
-    }
-  | {
-      id: string;
-      kind: "testimonial";
-      from: string;
-      role: string;
-      time: string;
-      comment: string;
-    }
-  | {
-      id: string;
-      kind: "building";
-      title: string;
-      summary: string;
-      stack: string[];
-      time: string;
-    }
-  | {
-      id: string;
-      kind: "status";
-      label: string;
-      value: string;
-      time: string;
-    };
+/**
+ * Structural metadata for each feed item.
+ * Text content is resolved from the "feed" translation namespace.
+ */
+type FeedItemMeta =
+  | { id: string; kind: "text"; stats: { replies: number; reposts: number; likes: number } }
+  | { id: string; kind: "project"; thumbSrc: string }
+  | { id: string; kind: "experience" }
+  | { id: string; kind: "testimonial" }
+  | { id: string; kind: "building" }
+  | { id: string; kind: "status" };
 
 /**
  * Feed
  * - Preconditions: Contains stacked card-based posts with social spacing.
  * - Postconditions: Renders a mix of requested post types (X/IG/LinkedIn-inspired).
+ * - All visible text is resolved from the "feed" translation namespace using item ids.
  */
 export function Feed() {
-  const items: FeedItem[] = [
-    {
-      id: "t1",
-      kind: "text",
-      author: "Nicky Bruno",
-      handle: "@nickybruno",
-      time: "2h",
-      content:
-        "Shipping an AI-first automation layer for teams that want calm, reliable workflows — no hype, just systems that stay up.",
-      stats: { replies: 12, reposts: 7, likes: 148 },
-    },
-    {
-      id: "p1",
-      kind: "project",
-      title: "Automation Studio",
-      description:
-        "A premium dashboard for designing and monitoring AI-assisted automations with human-in-the-loop controls.",
-      thumbSrc: "/thumb-automation.svg",
-      tags: ["AI", "Automation", "Observability"],
-      time: "Yesterday",
-    },
-    {
-      id: "e1",
-      kind: "experience",
-      role: "Creative Technologist",
-      org: "Independent · Client work",
-      time: "2023 — Present",
-      bullets: [
-        "Built AI + automation systems focused on reliability, repeatability, and measurable ROI.",
-        "Created editorial-grade product surfaces and interaction patterns for high-trust interfaces.",
-        "Delivered end-to-end: concept → prototype → production with clean DX.",
-      ],
-    },
-    {
-      id: "c1",
-      kind: "project",
-      title: "Case Study: Calm Ops",
-      description:
-        "Redesigned incident workflows into a quiet, high-signal interface with clear ownership and next actions.",
-      thumbSrc: "/thumb-case-study.svg",
-      tags: ["UX", "Systems", "Ops"],
-      time: "Last week",
-    },
-    {
-      id: "b1",
-      kind: "building",
-      title: "Currently building",
-      summary:
-        "An AI-native profile layer that turns a portfolio into a living feed of proof, progress, and context.",
-      stack: ["Next.js", "TypeScript", "Tailwind v4"],
-      time: "Now",
-    },
-    {
-      id: "s1",
-      kind: "status",
-      label: "Activity",
-      value: "Available for projects · Remote-friendly",
-      time: "Updated today",
-    },
-    {
-      id: "x1",
-      kind: "testimonial",
-      from: "Alex R.",
-      role: "Product Lead",
-      time: "2 weeks ago",
-      comment:
-        "Rare combo of taste + engineering. The work shipped fast, stayed stable, and felt premium from day one.",
-    },
-    {
-      id: "x2",
-      kind: "testimonial",
-      from: "Maya S.",
-      role: "Founder",
-      time: "1 month ago",
-      comment:
-        "Clear thinking, calm delivery, and excellent automation instincts. Everything came with a plan and a test story.",
-    },
+  const t = useTranslations("feed");
+
+  /**
+   * Structural data only — no hardcoded text.
+   * Each item's `id` matches a key in messages/{locale}.json → feed.{id}.*
+   */
+  const items: FeedItemMeta[] = [
+    { id: "t1", kind: "text", stats: { replies: 12, reposts: 7, likes: 148 } },
+    { id: "p1", kind: "project", thumbSrc: "/thumb-automation.svg" },
+    { id: "e1", kind: "experience" },
+    { id: "c1", kind: "project", thumbSrc: "/thumb-case-study.svg" },
+    { id: "b1", kind: "building" },
+    { id: "s1", kind: "status" },
+    { id: "x1", kind: "testimonial" },
+    { id: "x2", kind: "testimonial" },
   ];
 
   return (
@@ -149,32 +50,33 @@ export function Feed() {
                   <div className="flex items-start justify-between gap-4">
                     <div className="min-w-0">
                       <p className="text-sm text-foreground/90">
-                        <span className="font-medium">{item.author}</span>{" "}
-                        <span className="text-muted">{item.handle}</span>{" "}
-                        <span className="text-muted-2">· {item.time}</span>
+                        <span className="font-medium">{t(`${item.id}.author`)}</span>{" "}
+                        <span className="text-muted">{t(`${item.id}.handle`)}</span>{" "}
+                        <span className="text-muted-2">· {t(`${item.id}.time`)}</span>
                       </p>
                       <p className="mt-3 text-base leading-relaxed text-foreground">
-                        {item.content}
+                        {t(`${item.id}.content`)}
                       </p>
                     </div>
                   </div>
 
                   <div className="mt-4 flex items-center gap-4 text-xs text-muted">
-                    <span>{item.stats.replies} Replies</span>
-                    <span>{item.stats.reposts} Reposts</span>
-                    <span>{item.stats.likes} Likes</span>
+                    <span>{item.stats.replies} {t(`${item.id}.repliesLabel`)}</span>
+                    <span>{item.stats.reposts} {t(`${item.id}.repostsLabel`)}</span>
+                    <span>{item.stats.likes} {t(`${item.id}.likesLabel`)}</span>
                   </div>
                 </CardBody>
               </Card>
             );
 
-          case "project":
+          case "project": {
+            const tags = t.raw(`${item.id}.tags`) as string[];
             return (
               <Card key={item.id} className="overflow-hidden">
                 <div className="relative aspect-[16/9] w-full border-b border-divider bg-surface-2">
                   <Image
                     src={item.thumbSrc}
-                    alt={`${item.title} thumbnail`}
+                    alt={`${t(`${item.id}.title`)} thumbnail`}
                     fill
                     className="object-cover"
                   />
@@ -182,16 +84,16 @@ export function Feed() {
                 <CardBody className="pt-5">
                   <div className="flex items-start justify-between gap-4">
                     <div className="min-w-0">
-                      <p className="text-xs text-muted-2">{item.time}</p>
+                      <p className="text-xs text-muted-2">{t(`${item.id}.time`)}</p>
                       <h3 className="mt-2 font-display text-base tracking-tight text-foreground">
-                        {item.title}
+                        {t(`${item.id}.title`)}
                       </h3>
                       <p className="mt-2 text-sm leading-relaxed text-muted">
-                        {item.description}
+                        {t(`${item.id}.description`)}
                       </p>
                       <div className="mt-4 flex flex-wrap gap-2">
-                        {item.tags.map((t) => (
-                          <Tag key={t}>{t}</Tag>
+                        {tags.map((tag: string) => (
+                          <Tag key={tag}>{tag}</Tag>
                         ))}
                       </div>
                     </div>
@@ -199,19 +101,21 @@ export function Feed() {
                 </CardBody>
               </Card>
             );
+          }
 
-          case "experience":
+          case "experience": {
+            const bullets = t.raw(`${item.id}.bullets`) as string[];
             return (
               <Card key={item.id}>
                 <CardBody className="pt-5">
-                  <p className="text-xs text-muted-2">{item.time}</p>
+                  <p className="text-xs text-muted-2">{t(`${item.id}.time`)}</p>
                   <h3 className="mt-2 font-display text-base tracking-tight text-foreground">
-                    {item.role}
+                    {t(`${item.id}.role`)}
                   </h3>
-                  <p className="mt-1 text-sm text-muted">{item.org}</p>
+                  <p className="mt-1 text-sm text-muted">{t(`${item.id}.org`)}</p>
 
                   <ul className="mt-4 space-y-2 text-sm leading-relaxed text-foreground/90">
-                    {item.bullets.map((b) => (
+                    {bullets.map((b: string) => (
                       <li key={b} className="flex gap-2">
                         <span
                           className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-foreground/40"
@@ -224,24 +128,25 @@ export function Feed() {
                 </CardBody>
               </Card>
             );
+          }
 
           case "testimonial":
             return (
               <Card key={item.id}>
                 <CardBody className="pt-5">
-                  <p className="text-xs text-muted-2">{item.time}</p>
+                  <p className="text-xs text-muted-2">{t(`${item.id}.time`)}</p>
                   <div className="mt-3 flex items-start gap-3">
                     <div className="h-9 w-9 rounded-full border border-divider bg-surface-2" />
                     <div className="min-w-0">
                       <p className="text-sm text-foreground/90">
-                        <span className="font-medium">{item.from}</span>{" "}
-                        <span className="text-muted">· {item.role}</span>
+                        <span className="font-medium">{t(`${item.id}.from`)}</span>{" "}
+                        <span className="text-muted">· {t(`${item.id}.role`)}</span>
                       </p>
                       <p className="mt-2 text-sm leading-relaxed text-muted">
-                        {item.comment}
+                        {t(`${item.id}.comment`)}
                       </p>
                       <div className="mt-3 text-xs text-muted">
-                        Reply · Like · Share
+                        {t("actions.reply")} · {t("actions.like")} · {t("actions.share")}
                       </div>
                     </div>
                   </div>
@@ -249,34 +154,36 @@ export function Feed() {
               </Card>
             );
 
-          case "building":
+          case "building": {
+            const stack = t.raw(`${item.id}.stack`) as string[];
             return (
               <Card key={item.id}>
                 <CardBody className="pt-5">
-                  <p className="text-xs text-muted-2">{item.time}</p>
+                  <p className="text-xs text-muted-2">{t(`${item.id}.time`)}</p>
                   <h3 className="mt-2 font-display text-base tracking-tight text-foreground">
-                    {item.title}
+                    {t(`${item.id}.title`)}
                   </h3>
                   <p className="mt-2 text-sm leading-relaxed text-muted">
-                    {item.summary}
+                    {t(`${item.id}.summary`)}
                   </p>
                   <div className="mt-4 flex flex-wrap gap-2">
-                    {item.stack.map((t) => (
-                      <Tag key={t}>{t}</Tag>
+                    {stack.map((s: string) => (
+                      <Tag key={s}>{s}</Tag>
                     ))}
                   </div>
                 </CardBody>
               </Card>
             );
+          }
 
           case "status":
             return (
               <Card key={item.id}>
                 <CardBody className="pt-5">
-                  <p className="text-xs text-muted-2">{item.time}</p>
+                  <p className="text-xs text-muted-2">{t(`${item.id}.time`)}</p>
                   <div className="mt-3 flex items-center justify-between gap-3">
-                    <p className="text-sm text-muted">{item.label}</p>
-                    <p className="text-sm text-foreground">{item.value}</p>
+                    <p className="text-sm text-muted">{t(`${item.id}.label`)}</p>
+                    <p className="text-sm text-foreground">{t(`${item.id}.value`)}</p>
                   </div>
                 </CardBody>
               </Card>
@@ -289,4 +196,3 @@ export function Feed() {
     </div>
   );
 }
-

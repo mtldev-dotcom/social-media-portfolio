@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useTranslations } from "next-intl";
 import { Card } from "./ui/Card";
 import { Button } from "./ui/Button";
 
@@ -14,17 +15,21 @@ type Message = {
  * ChatPanel (UI-only)
  * - Preconditions: Right rail exists; this panel should feel "floating".
  * - Postconditions: Provides an AI-native affordance without any backend integration.
+ * - Renamed from "AI Concierge" to "AI Guide" per content-enhance.md spec.
  *
  * Notes:
  * - Strict palette: neutral surfaces; blue only for CTA emphasis.
  * - No network requests here.
+ * - All text resolved from "aiGuide" translation namespace.
  */
 export function ChatPanel() {
+  const t = useTranslations("aiGuide");
+
   const [messages, setMessages] = React.useState<Message[]>([
     {
       id: "m1",
       role: "assistant",
-      text: "Ask me about Nicky’s work, stack, or recent projects.",
+      text: t("initialMessage"),
     },
   ]);
   const [input, setInput] = React.useState("");
@@ -40,8 +45,7 @@ export function ChatPanel() {
       {
         id: crypto.randomUUID(),
         role: "assistant",
-        text:
-          "Thanks — this is a UI placeholder. Connect an AI endpoint to power real answers.",
+        text: t("placeholderResponse"),
       },
     ]);
     setInput("");
@@ -53,14 +57,14 @@ export function ChatPanel() {
         <div className="flex items-center justify-between gap-3">
           <div className="min-w-0">
             <p className="font-display text-sm tracking-wide text-foreground/90">
-              AI Concierge
+              {t("title")}
             </p>
             <p className="mt-1 text-xs text-muted">
-              Private, calm, and high-signal.
+              {t("subtitle")}
             </p>
           </div>
           <span className="rounded-full border border-divider bg-surface-2 px-3 py-1 text-xs text-muted">
-            Beta
+            {t("beta")}
           </span>
         </div>
       </div>
@@ -84,7 +88,7 @@ export function ChatPanel() {
 
       <div className="mt-4 flex items-center gap-2 px-5 pb-5">
         <label className="sr-only" htmlFor="chat-input">
-          Message
+          {t("inputLabel")}
         </label>
         <input
           id="chat-input"
@@ -93,14 +97,13 @@ export function ChatPanel() {
           onKeyDown={(e) => {
             if (e.key === "Enter") onSend();
           }}
-          placeholder="Ask about projects, skills, availability…"
+          placeholder={t("inputPlaceholder")}
           className="h-10 w-full rounded-full border border-divider bg-surface-2 px-4 text-sm text-foreground placeholder:text-muted focus-visible:outline-none"
         />
-        <Button variant="primary" size="sm" ariaLabel="Send message" onClick={onSend}>
-          Send
+        <Button variant="primary" size="sm" ariaLabel={t("send")} onClick={onSend}>
+          {t("send")}
         </Button>
       </div>
     </Card>
   );
 }
-

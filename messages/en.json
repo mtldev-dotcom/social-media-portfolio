@@ -1,0 +1,144 @@
+{
+  "metadata": {
+    "title": "Nicky Bruno | Portfolio",
+    "description": "A Facebook-inspired profile portfolio for Nicky Bruno (Creative Technologist · AI & Automation)."
+  },
+  "nav": {
+    "primary": "Primary",
+    "home": "Home",
+    "search": "Search",
+    "projects": "Projects",
+    "experience": "Experience",
+    "testimonials": "Testimonials",
+    "settings": "Settings"
+  },
+  "profile": {
+    "name": "Nicky Bruno",
+    "avatarAlt": "Nicky Bruno avatar",
+    "verified": "Verified",
+    "headline": "Creative Technologist · AI & Automation",
+    "location": "Montreal · Remote",
+    "status": "Available for projects",
+    "follow": "Follow",
+    "contact": "Contact",
+    "bookCall": "Book a Call"
+  },
+  "feed": {
+    "t1": {
+      "author": "Nicky Bruno",
+      "handle": "@nickybruno",
+      "time": "2h",
+      "content": "Shipping an AI-first automation layer for teams that want calm, reliable workflows — no hype, just systems that stay up.",
+      "repliesLabel": "Replies",
+      "repostsLabel": "Reposts",
+      "likesLabel": "Likes"
+    },
+    "p1": {
+      "title": "Automation Studio",
+      "description": "A premium dashboard for designing and monitoring AI-assisted automations with human-in-the-loop controls.",
+      "time": "Yesterday",
+      "tags": [
+        "AI",
+        "Automation",
+        "Observability"
+      ]
+    },
+    "e1": {
+      "role": "Creative Technologist",
+      "org": "Independent · Client work",
+      "time": "2023 — Present",
+      "bullets": [
+        "Built AI + automation systems focused on reliability, repeatability, and measurable ROI.",
+        "Created editorial-grade product surfaces and interaction patterns for high-trust interfaces.",
+        "Delivered end-to-end: concept → prototype → production with clean DX."
+      ]
+    },
+    "c1": {
+      "title": "Case Study: Calm Ops",
+      "description": "Redesigned incident workflows into a quiet, high-signal interface with clear ownership and next actions.",
+      "time": "Last week",
+      "tags": [
+        "UX",
+        "Systems",
+        "Ops"
+      ]
+    },
+    "b1": {
+      "title": "Currently building",
+      "summary": "An AI-native profile layer that turns a portfolio into a living feed of proof, progress, and context.",
+      "time": "Now",
+      "stack": [
+        "Next.js",
+        "TypeScript",
+        "Tailwind v4"
+      ]
+    },
+    "s1": {
+      "label": "Activity",
+      "value": "Available for projects · Remote-friendly",
+      "time": "Updated today"
+    },
+    "x1": {
+      "from": "Alex R.",
+      "role": "Product Lead",
+      "time": "2 weeks ago",
+      "comment": "Rare combo of taste + engineering. The work shipped fast, stayed stable, and felt premium from day one."
+    },
+    "x2": {
+      "from": "Maya S.",
+      "role": "Founder",
+      "time": "1 month ago",
+      "comment": "Clear thinking, calm delivery, and excellent automation instincts. Everything came with a plan and a test story."
+    },
+    "actions": {
+      "reply": "Reply",
+      "like": "Like",
+      "share": "Share"
+    }
+  },
+  "rightRail": {
+    "profileSummary": {
+      "title": "Profile summary",
+      "subtitle": "High-signal overview",
+      "description": "Creative technologist focused on calm, reliable systems: AI-assisted automation, editorial UX, and production-grade delivery.",
+      "techStackLabel": "Tech stack",
+      "techStack": [
+        "AI Automation",
+        "Agent Systems",
+        "Next.js",
+        "TypeScript",
+        "Workflow Design",
+        "APIs",
+        "Observability"
+      ]
+    },
+    "stats": {
+      "title": "Stats",
+      "subtitle": "Signals, not vanity",
+      "followers": "Followers",
+      "projects": "Projects",
+      "clients": "Clients",
+      "availability": "Availability",
+      "open": "Open"
+    }
+  },
+  "aiGuide": {
+    "title": "AI Guide",
+    "subtitle": "Private, calm, and high-signal.",
+    "beta": "Beta",
+    "initialMessage": "Ask me about anything on this page. Projects, notes, tools, or why I built something.",
+    "placeholderResponse": "Thanks — this is a UI placeholder. Connect an AI endpoint to power real answers.",
+    "inputLabel": "Message",
+    "inputPlaceholder": "Ask about projects, skills, availability…",
+    "send": "Send"
+  },
+  "theme": {
+    "switchToLight": "Switch to light mode",
+    "switchToDark": "Switch to dark mode"
+  },
+  "languageSwitcher": {
+    "label": "Language",
+    "switchToEn": "Switch to English",
+    "switchToFr": "Passer au français"
+  }
+}

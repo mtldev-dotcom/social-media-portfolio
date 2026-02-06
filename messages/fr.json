@@ -1,0 +1,144 @@
+{
+  "metadata": {
+    "title": "Nicky Bruno | Portfolio",
+    "description": "Un portfolio de profil inspiré de Facebook pour Nicky Bruno (Technologue créatif · IA et Automatisation)."
+  },
+  "nav": {
+    "primary": "Principal",
+    "home": "Accueil",
+    "search": "Recherche",
+    "projects": "Projets",
+    "experience": "Expérience",
+    "testimonials": "Témoignages",
+    "settings": "Paramètres"
+  },
+  "profile": {
+    "name": "Nicky Bruno",
+    "avatarAlt": "Avatar de Nicky Bruno",
+    "verified": "Vérifié",
+    "headline": "Technologue créatif · IA et Automatisation",
+    "location": "Montréal · Télétravail",
+    "status": "Disponible pour des projets",
+    "follow": "Suivre",
+    "contact": "Contact",
+    "bookCall": "Réserver un appel"
+  },
+  "feed": {
+    "t1": {
+      "author": "Nicky Bruno",
+      "handle": "@nickybruno",
+      "time": "2h",
+      "content": "Je développe une couche d'automatisation IA pour les équipes qui veulent des flux de travail calmes et fiables — pas de battage, juste des systèmes qui restent en marche.",
+      "repliesLabel": "Réponses",
+      "repostsLabel": "Repartages",
+      "likesLabel": "J'aime"
+    },
+    "p1": {
+      "title": "Studio d'Automatisation",
+      "description": "Un tableau de bord premium pour concevoir et surveiller des automatisations assistées par IA avec des contrôles humains.",
+      "time": "Hier",
+      "tags": [
+        "IA",
+        "Automatisation",
+        "Observabilité"
+      ]
+    },
+    "e1": {
+      "role": "Technologue créatif",
+      "org": "Indépendant · Travail client",
+      "time": "2023 — Présent",
+      "bullets": [
+        "Conçu des systèmes d'IA et d'automatisation axés sur la fiabilité, la reproductibilité et un ROI mesurable.",
+        "Créé des surfaces produits de qualité éditoriale et des modèles d'interaction pour des interfaces de haute confiance.",
+        "Livré de bout en bout : concept → prototype → production avec une DX soignée."
+      ]
+    },
+    "c1": {
+      "title": "Étude de cas : Calm Ops",
+      "description": "Refonte des flux d'incidents en une interface calme et à haut signal avec une responsabilité claire et des prochaines actions.",
+      "time": "La semaine dernière",
+      "tags": [
+        "UX",
+        "Systèmes",
+        "Ops"
+      ]
+    },
+    "b1": {
+      "title": "En cours de construction",
+      "summary": "Une couche de profil native IA qui transforme un portfolio en un flux vivant de preuves, de progrès et de contexte.",
+      "time": "Maintenant",
+      "stack": [
+        "Next.js",
+        "TypeScript",
+        "Tailwind v4"
+      ]
+    },
+    "s1": {
+      "label": "Activité",
+      "value": "Disponible pour des projets · Télétravail",
+      "time": "Mis à jour aujourd'hui"
+    },
+    "x1": {
+      "from": "Alex R.",
+      "role": "Chef de produit",
+      "time": "Il y a 2 semaines",
+      "comment": "Combinaison rare de goût et d'ingénierie. Le travail a été livré rapidement, est resté stable et a semblé premium dès le premier jour."
+    },
+    "x2": {
+      "from": "Maya S.",
+      "role": "Fondatrice",
+      "time": "Il y a 1 mois",
+      "comment": "Pensée claire, livraison calme et excellents instincts d'automatisation. Tout est venu avec un plan et un scénario de test."
+    },
+    "actions": {
+      "reply": "Répondre",
+      "like": "J'aime",
+      "share": "Partager"
+    }
+  },
+  "rightRail": {
+    "profileSummary": {
+      "title": "Résumé du profil",
+      "subtitle": "Aperçu à haut signal",
+      "description": "Technologue créatif axé sur des systèmes calmes et fiables : automatisation assistée par IA, UX éditoriale et livraison de qualité production.",
+      "techStackLabel": "Stack technique",
+      "techStack": [
+        "Automatisation IA",
+        "Systèmes d'agents",
+        "Next.js",
+        "TypeScript",
+        "Conception de flux",
+        "API",
+        "Observabilité"
+      ]
+    },
+    "stats": {
+      "title": "Statistiques",
+      "subtitle": "Des signaux, pas de la vanité",
+      "followers": "Abonnés",
+      "projects": "Projets",
+      "clients": "Clients",
+      "availability": "Disponibilité",
+      "open": "Ouvert"
+    }
+  },
+  "aiGuide": {
+    "title": "Guide IA",
+    "subtitle": "Privé, calme et à haut signal.",
+    "beta": "Bêta",
+    "initialMessage": "Posez-moi des questions sur cette page. Projets, notes, outils ou pourquoi j'ai construit quelque chose.",
+    "placeholderResponse": "Merci — ceci est un espace réservé. Connectez un point d'accès IA pour des réponses réelles.",
+    "inputLabel": "Message",
+    "inputPlaceholder": "Demandez à propos des projets, compétences, disponibilité…",
+    "send": "Envoyer"
+  },
+  "theme": {
+    "switchToLight": "Passer au mode clair",
+    "switchToDark": "Passer au mode sombre"
+  },
+  "languageSwitcher": {
+    "label": "Langue",
+    "switchToEn": "Switch to English",
+    "switchToFr": "Passer au français"
+  }
+}

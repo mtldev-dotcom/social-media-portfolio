@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useTranslations } from "next-intl";
 import { IconMoon, IconSun } from "./icons";
 
 type Theme = "dark" | "light";
@@ -24,6 +25,7 @@ function applyTheme(next: Theme) {
  * ThemeToggle
  * - Preconditions: `app/globals.css` defines token overrides for `html[data-theme="light"]`.
  * - Postconditions: Clicking toggles between dark/light and persists to localStorage.
+ * - Aria label resolved from "theme" translation namespace.
  *
  * Error paths:
  * - If localStorage is unavailable, we still toggle for the current session.
@@ -33,6 +35,7 @@ export function ThemeToggle({
 }: {
   className?: string;
 }) {
+  const t = useTranslations("theme");
   const [theme, setTheme] = React.useState<Theme>("dark");
 
   React.useEffect(() => {
@@ -70,7 +73,7 @@ export function ThemeToggle({
   }
 
   const isDark = theme === "dark";
-  const label = isDark ? "Switch to light mode" : "Switch to dark mode";
+  const label = isDark ? t("switchToLight") : t("switchToDark");
 
   return (
     <button

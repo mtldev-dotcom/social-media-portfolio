@@ -1,9 +1,20 @@
+import { use } from "react";
+import { setRequestLocale } from "next-intl/server";
 import { Feed } from "@/components/Feed";
 import { LeftNav } from "@/components/LeftNav";
 import { ProfileHeader } from "@/components/ProfileHeader";
 import { RightRail } from "@/components/RightRail";
 
-export default function Home() {
+type Props = {
+  params: Promise<{ locale: string }>;
+};
+
+export default function Home({ params }: Props) {
+  const { locale } = use(params);
+
+  // Enable static rendering for this page.
+  setRequestLocale(locale);
+
   return (
     <div className="min-h-screen bg-background">
       <div className="mx-auto w-full max-w-[1260px] px-4 py-6">
