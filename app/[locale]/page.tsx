@@ -1,4 +1,3 @@
-import { use } from "react";
 import { setRequestLocale } from "next-intl/server";
 import { FeedWithTimeline } from "@/components/FeedWithTimeline";
 import { LeftNav } from "@/components/LeftNav";
@@ -11,14 +10,14 @@ type Props = {
   params: Promise<{ locale: string }>;
 };
 
-export default function Home({ params }: Props) {
-  const { locale } = use(params);
+export default async function Home({ params }: Props) {
+  const { locale } = await params;
 
   // Enable static rendering for this page.
   setRequestLocale(locale);
 
   // Fetch all published entries for this locale (server-side).
-  const entries = use(getAllEntries(locale as Locale));
+  const entries = await getAllEntries(locale as Locale);
 
   return (
     <div className="min-h-screen">

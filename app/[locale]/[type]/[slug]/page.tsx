@@ -1,4 +1,3 @@
-import { use } from "react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
@@ -74,14 +73,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
  * Entry detail page — renders a single content entry.
  * Shared route for all content types: /[locale]/[type]/[slug]
  */
-export default function EntryDetailPage({ params }: Props) {
-  const { locale, type: rawType, slug } = use(params);
+export default async function EntryDetailPage({ params }: Props) {
+  const { locale, type: rawType, slug } = await params;
   setRequestLocale(locale);
 
   const entryType = parseType(rawType);
   if (!entryType) notFound();
 
-  const entry = use(getEntryBySlug(locale as Locale, entryType, slug));
+  const entry = await getEntryBySlug(locale as Locale, entryType, slug);
   if (!entry) notFound();
 
   return (

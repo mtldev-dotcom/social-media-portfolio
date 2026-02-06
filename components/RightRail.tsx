@@ -1,3 +1,5 @@
+"use client";
+
 import { useTranslations } from "next-intl";
 import { Card, CardBody, CardHeader } from "./ui/Card";
 import { Tag } from "./ui/Tag";

@@ -6,19 +6,24 @@ import createNextIntlPlugin from "next-intl/plugin";
 const nextConfig: NextConfig = {
   /* Standalone output for Docker deployments (copies only needed files). */
   output: "standalone",
+  /* Allow next/image to load Payload media from /api/media/file/... (dev + prod). */
+  images: {
+    remotePatterns: [
+      { protocol: "http", hostname: "localhost", port: "3000", pathname: "/api/**" },
+      { protocol: "https", hostname: "localhost", port: "", pathname: "/api/**" },
+    ],
+  },
   /* Include @swc/helpers in standalone trace (SWC-injected runtime dep, often missed). */
   outputFileTracingIncludes: {
     "/*": ["./node_modules/@swc/helpers/**/*"],
   },
-  /* Dedupe React so single context; resolve @payload-config. (Do not alias @payloadcms/ui — breaks /shared subpath.) */
+  /* Resolve @payload-config. Do not alias react/react-dom — breaks Next.js LayoutRouterContext (useContext null). */
   webpack: (config) => {
     const cwd = process.cwd();
     config.resolve ??= {};
     config.resolve.alias = {
       ...config.resolve.alias,
       "@payload-config": path.resolve(cwd, "payload.config.ts"),
-      react: path.resolve(cwd, "node_modules/react"),
-      "react-dom": path.resolve(cwd, "node_modules/react-dom"),
     };
     return config;
   },

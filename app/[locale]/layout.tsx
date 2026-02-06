@@ -53,7 +53,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 /**
- * Locale layout — root <html>/<body> live in app/layout.tsx so Payload routes share the doc.
+ * Locale layout — owns <html>/<body> for frontend (root layout is a fragment).
  * - Validates locale; 404 if unsupported.
  * - SetLang sets document.documentElement.lang for SEO.
  * - Theme script persists preference (no flash).
@@ -69,14 +69,15 @@ export default async function LocaleLayout({ children, params }: Props) {
   const messages = await getMessages();
 
   return (
-    <>
-      <SetLang lang={locale} />
-      {/*
-        Apply persisted theme preference ASAP to reduce flash.
-      */}
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `(function () {
+    <html lang={locale} suppressHydrationWarning>
+      <body>
+        <SetLang lang={locale} />
+        {/*
+          Apply persisted theme preference ASAP to reduce flash.
+        */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function () {
   try {
     var t = localStorage.getItem("theme");
     if (t === "light" || t === "dark") {
@@ -84,18 +85,19 @@ export default async function LocaleLayout({ children, params }: Props) {
     }
   } catch (e) {}
 })();`,
-        }}
-      />
-      <div
-        className={`${inter.variable} ${spaceGrotesk.variable} antialiased`}
-      >
-        <NextIntlClientProvider messages={messages}>
-          {children}
-          <div className="mx-auto w-full max-w-[1260px] px-4">
-            <Footer />
-          </div>
-        </NextIntlClientProvider>
-      </div>
-    </>
+          }}
+        />
+        <div
+          className={`${inter.variable} ${spaceGrotesk.variable} antialiased`}
+        >
+          <NextIntlClientProvider messages={messages}>
+            {children}
+            <div className="mx-auto w-full max-w-[1260px] px-4">
+              <Footer />
+            </div>
+          </NextIntlClientProvider>
+        </div>
+      </body>
+    </html>
   );
 }
