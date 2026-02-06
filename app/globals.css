@@ -1,0 +1,179 @@
+@import "tailwindcss";
+
+:root {
+  /*
+   * Facebook-like palette (dark-first).
+   * Preconditions: app renders in a modern browser with CSS variables support.
+   * Postconditions: all components can reference these tokens via var(--token).
+   *
+   * Notes:
+   * - We intentionally avoid gradients and extra accent colors.
+   * - Primary accent is Facebook blue; everything else stays neutral.
+   */
+  --fb-blue: #1877f2;
+  --fb-blue-hover: #166fe5;
+  --fb-blue-pressed: #1464d2;
+  --fb-blue-soft: rgba(24, 119, 242, 0.18);
+
+  /* Core surfaces (similar to Facebook dark UI). */
+  --app-bg: #18191a;
+  --surface-1: #242526; /* cards */
+  --surface-2: #2d2e30; /* subtle elevated */
+  --surface-1-glass: rgba(36, 37, 38, 0.78);
+  --surface-2-glass: rgba(45, 46, 48, 0.76);
+
+  /* Borders/dividers */
+  --divider: rgba(255, 255, 255, 0.12);
+  --divider-strong: rgba(255, 255, 255, 0.18);
+
+  /* Text */
+  --text-primary: #e4e6eb;
+  --text-secondary: rgba(228, 230, 235, 0.72);
+  --text-tertiary: rgba(228, 230, 235, 0.56);
+
+  /* Shadows (subtle depth only) */
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --shadow-2: 0 8px 24px rgba(0, 0, 0, 0.35);
+  --shadow-blue-glow: 0 0 0 1px rgba(24, 119, 242, 0.22),
+    0 10px 22px rgba(0, 0, 0, 0.4),
+    0 0 24px rgba(24, 119, 242, 0.18);
+
+  /* Focus ring */
+  --focus-ring: rgba(24, 119, 242, 0.55);
+}
+
+/*
+ * Light theme token overrides.
+ * - Preconditions: Activated by setting `data-theme="light"` on the <html> element.
+ * - Postconditions: UI uses the same semantic tokens but with light surfaces/text.
+ *
+ * Design rules still apply:
+ * - No gradients.
+ * - Accent remains Facebook blue only.
+ */
+html[data-theme="light"] {
+  /* Core surfaces (Facebook-like light UI). */
+  --app-bg: #f0f2f5;
+  --surface-1: #ffffff;
+  --surface-2: #f5f6f7;
+
+  /* Glass surfaces are subtle in light mode too. */
+  --surface-1-glass: rgba(255, 255, 255, 0.78);
+  --surface-2-glass: rgba(245, 246, 247, 0.76);
+
+  /* Dividers are darker in light mode for visibility. */
+  --divider: rgba(0, 0, 0, 0.1);
+  --divider-strong: rgba(0, 0, 0, 0.16);
+
+  /* Text */
+  --text-primary: #111418;
+  --text-secondary: rgba(17, 20, 24, 0.72);
+  --text-tertiary: rgba(17, 20, 24, 0.56);
+
+  /* Shadows (still subtle; slightly lighter). */
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.12);
+  --shadow-2: 0 12px 28px rgba(0, 0, 0, 0.16);
+
+  /*
+   * Blue glow remains subtle; avoid "neon" in light mode.
+   * Keep the same structure but reduce opacity slightly.
+   */
+  --shadow-blue-glow: 0 0 0 1px rgba(24, 119, 242, 0.18),
+    0 10px 22px rgba(0, 0, 0, 0.16),
+    0 0 22px rgba(24, 119, 242, 0.14);
+
+  --focus-ring: rgba(24, 119, 242, 0.45);
+}
+
+@theme inline {
+  /* Tailwind v4 theme mapping: lets us use semantic vars in utilities. */
+  --color-background: var(--app-bg);
+  --color-foreground: var(--text-primary);
+  --color-accent: var(--fb-blue);
+  --color-accent-soft: var(--fb-blue-soft);
+
+  --color-surface-1: var(--surface-1);
+  --color-surface-2: var(--surface-2);
+  --color-surface-1-glass: var(--surface-1-glass);
+  --color-surface-2-glass: var(--surface-2-glass);
+  --color-divider: var(--divider);
+  --color-muted: var(--text-secondary);
+  --color-muted-2: var(--text-tertiary);
+
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-space-grotesk);
+
+  /*
+   * Custom shadows for consistent depth.
+   * Preconditions: used sparingly to avoid a "neon" look.
+   * Postconditions: primary call-to-action can have a premium blue glow.
+   */
+  --shadow-card: var(--shadow-1);
+  --shadow-float: var(--shadow-2);
+  --shadow-accent-glow: var(--shadow-blue-glow);
+}
+
+body {
+  /*
+   * Base app styling.
+   * Error paths: if fonts fail to load, browser falls back to system UI fonts.
+   */
+  background: var(--app-bg);
+  color: var(--text-primary);
+  font-family:
+    var(--font-sans),
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    Segoe UI,
+    Roboto,
+    Helvetica,
+    Arial,
+    "Apple Color Emoji",
+    "Segoe UI Emoji";
+}
+
+html {
+  /* Hint to the UA that we are dark-first. */
+  color-scheme: dark;
+}
+
+html[data-theme="light"] {
+  color-scheme: light;
+}
+
+/*
+ * Reusable component-like utilities.
+ * We keep these minimal to preserve Tailwind-as-API while enabling
+ * a coherent "flat + subtle glass" design language.
+ */
+@layer components {
+  .card {
+    background: var(--surface-1);
+    border: 1px solid var(--divider);
+    box-shadow: var(--shadow-1);
+    border-radius: 1rem;
+  }
+
+  .card-glass {
+    background: var(--surface-1-glass);
+    border: 1px solid var(--divider);
+    box-shadow: var(--shadow-1);
+    border-radius: 1rem;
+    backdrop-filter: blur(10px);
+  }
+
+  .divider {
+    height: 1px;
+    background: var(--divider);
+  }
+}
+
+::selection {
+  background: rgba(24, 119, 242, 0.28);
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}

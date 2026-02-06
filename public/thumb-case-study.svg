@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <!-- Neutral case study thumbnail placeholder (no gradients, no accent colors). -->
+  <rect width="1200" height="800" fill="#242526"/>
+  <rect x="72" y="72" width="1056" height="656" rx="40" fill="#2d2e30" stroke="rgba(255,255,255,0.12)" stroke-width="4"/>
+  <g fill="none" stroke="rgba(228,230,235,0.35)" stroke-width="4">
+    <rect x="160" y="180" width="360" height="440" rx="24"/>
+    <path d="M600 220h420"/>
+    <path d="M600 280h360"/>
+    <path d="M600 340h420"/>
+    <path d="M600 420h320"/>
+    <path d="M600 500h380"/>
+  </g>
+</svg>

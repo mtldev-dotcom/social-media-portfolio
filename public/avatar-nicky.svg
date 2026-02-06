@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <!--
+    Neutral avatar placeholder (no extra accent colors).
+    Preconditions: Used in a circular mask.
+    Postconditions: Provides a premium, low-noise identity placeholder.
+  -->
+  <rect width="512" height="512" rx="256" fill="#242526"/>
+  <circle cx="256" cy="208" r="88" fill="#2d2e30"/>
+  <path d="M104 452c22-92 96-148 152-148s130 56 152 148" fill="#2d2e30"/>
+  <circle cx="256" cy="256" r="232" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="8"/>
+</svg>

@@ -1,0 +1,146 @@
+# Design Context
+
+## Product concept
+
+This project is a **modern personal portfolio website designed as a social media profile page** — a hybrid of **LinkedIn + Instagram + X (Twitter) + Facebook**, reimagined as a high-end personal brand platform.
+
+The goal is for the site to feel like a **living profile** (posts, activity, proof, social credibility) rather than a traditional "portfolio landing page".
+
+---
+
+## Brand + visual constraints (non-negotiable)
+
+- **Global palette**: strict Facebook-inspired palette across the entire UI.
+  - **Only accent**: Facebook blue (`#1877f2`) for emphasis.
+  - **Everything else**: charcoal/gray neutrals.
+- **No gradients**
+- **No secondary accent colors**
+- **No neon**
+- **Imagery**: avoid colorful imagery dominating the UI. Prefer neutral/low-saturation placeholders.
+- **Effects**: "flat + subtle glassmorphism"
+  - Subtle `backdrop-filter` blur is allowed, used sparingly (chat panel).
+  - Depth via shadows only (soft, neutral).
+  - Soft blue glow only on primary buttons / active elements (still subtle; not neon).
+- **Surfaces**: charcoal/gray card surfaces, soft rounded corners (`1rem`), thin grayscale dividers.
+
+---
+
+## Theme system (dark + light)
+
+The app supports **dark mode** (default) and **light mode** with a manual toggle.
+
+### Token architecture
+
+Source of truth is `app/globals.css`:
+
+| Section | Purpose |
+|---------|---------|
+| `:root { … }` | Dark-mode tokens (surfaces, text, shadows, dividers) |
+| `html[data-theme="light"] { … }` | Light-mode overrides for the same tokens |
+| `@theme inline { … }` | Tailwind v4 semantic mapping (`--color-background`, etc.) |
+| `@layer components { … }` | Minimal utilities: `.card`, `.card-glass`, `.divider` |
+
+### How the toggle works
+
+1. `components/ThemeToggle.tsx` (client component) toggles `data-theme` on `<html>` and saves to `localStorage`.
+2. `app/layout.tsx` includes an inline `<script>` that reads `localStorage` and sets `data-theme` **before paint** to avoid flash.
+3. `html[data-theme="light"]` overrides CSS variables; entire UI updates instantly.
+
+### Key tokens (both themes)
+
+| Token | Dark value | Light value |
+|-------|------------|-------------|
+| `--app-bg` | `#18191a` | `#f0f2f5` |
+| `--surface-1` | `#242526` | `#ffffff` |
+| `--surface-2` | `#2d2e30` | `#f5f6f7` |
+| `--text-primary` | `#e4e6eb` | `#111418` |
+| `--divider` | `rgba(255,255,255,0.12)` | `rgba(0,0,0,0.1)` |
+| `--fb-blue` | `#1877f2` | `#1877f2` (unchanged) |
+
+---
+
+## Layout (desktop-first)
+
+Three-column desktop layout:
+
+| Column | Content |
+|--------|---------|
+| **Left** | Minimal icon navigation (grayscale) + theme toggle |
+| **Center** | Profile header + social feed (stacked cards) |
+| **Right** | Profile summary, stats, tech stack tags, floating AI chat panel |
+
+### Responsive intent
+
+- **Desktop** (≥1024px): 3-column grid.
+- **Tablet/mobile** (<1024px): left nav becomes a horizontal row; right rail stacks below feed; chat panel docks.
+
+---
+
+## Top profile header (center column)
+
+| Element | Value |
+|---------|-------|
+| Avatar | Circular, neutral placeholder |
+| Verified badge | Blue checkmark |
+| Name | **Nicky Bruno** |
+| Headline | **Creative Technologist · AI & Automation** |
+| Location | **Montreal · Remote** |
+| Status | **Available for projects** |
+| Primary buttons | **Follow**, **Contact**, **Book a Call** (blue accent) |
+
+---
+
+## Feed content types
+
+The main feed includes these post styles:
+
+- **Short text posts** — X/Twitter-style
+- **Project cards** — image thumbnail + tags (Instagram-inspired)
+- **Case study / experience posts** — role, org, bullets (LinkedIn-inspired)
+- **Testimonials** — displayed like social comments
+- **"Currently building"** — stack tags + summary
+- **Activity/status cards** — availability, updates
+
+Data is currently a typed local array in `components/Feed.tsx`.
+
+---
+
+## Typography
+
+| Use | Font |
+|-----|------|
+| Body / UI | **Inter** (variable) |
+| Display / headings | **Space Grotesk** (variable) |
+
+Fonts are loaded via `next/font/google` in `app/layout.tsx` and exposed through CSS variables (`--font-inter`, `--font-space-grotesk`).
+
+---
+
+## Tech stack
+
+| Layer | Tech |
+|-------|------|
+| Framework | Next.js 16 (App Router) |
+| Language | TypeScript 5 |
+| Styling | Tailwind CSS v4 (CSS variable tokens) |
+| Fonts | Inter, Space Grotesk |
+
+---
+
+## Dev commands
+
+```bash
+npm run dev      # Start dev server
+npm run lint     # Run ESLint
+npm run build    # Production build
+```
+
+---
+
+## Acceptance criteria (visual)
+
+- The page reads as a **social profile** first, portfolio second.
+- Accent blue is used **only** for emphasis (buttons, active nav, verified badge, subtle focus/glow).
+- No gradients; no additional accent colors; no neon.
+- Cards feel premium: neutral surfaces, thin dividers, subtle shadow depth, optional soft glass effect.
+- Theme toggle works instantly; preference persists across sessions with no flash.

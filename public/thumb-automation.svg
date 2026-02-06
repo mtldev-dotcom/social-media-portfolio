@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <!-- Neutral project thumbnail placeholder (no gradients, no accent colors). -->
+  <rect width="1200" height="800" fill="#242526"/>
+  <rect x="72" y="72" width="1056" height="656" rx="40" fill="#2d2e30" stroke="rgba(255,255,255,0.12)" stroke-width="4"/>
+  <g fill="none" stroke="rgba(228,230,235,0.45)" stroke-width="4">
+    <path d="M180 260h420"/>
+    <path d="M180 320h560"/>
+    <path d="M180 380h300"/>
+  </g>
+  <g fill="none" stroke="rgba(228,230,235,0.25)" stroke-width="4">
+    <circle cx="900" cy="360" r="96"/>
+    <path d="M900 248v32M900 440v32M788 360h32M980 360h32"/>
+  </g>
+</svg>
