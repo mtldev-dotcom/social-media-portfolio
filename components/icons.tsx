@@ -150,6 +150,79 @@ export function IconSettings({
   );
 }
 
+export function IconUser({
+  className = "h-5 w-5",
+  title = "About",
+}: IconProps) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden={title ? undefined : true}
+      role={title ? "img" : "presentation"}
+    >
+      {title ? <title>{title}</title> : null}
+      <circle cx="12" cy="8" r="4" />
+      <path d="M5.5 21a6.5 6.5 0 0 1 13 0" />
+    </svg>
+  );
+}
+
+export function IconFlask({
+  className = "h-5 w-5",
+  title = "Lab",
+}: IconProps) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden={title ? undefined : true}
+      role={title ? "img" : "presentation"}
+    >
+      {title ? <title>{title}</title> : null}
+      <path d="M9 3h6" />
+      <path d="M10 3v7.4L4.5 19a1.5 1.5 0 0 0 1.3 2.2h12.4a1.5 1.5 0 0 0 1.3-2.2L14 10.4V3" />
+      <path d="M8.5 14h7" />
+    </svg>
+  );
+}
+
+export function IconFileText({
+  className = "h-5 w-5",
+  title = "Notes",
+}: IconProps) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden={title ? undefined : true}
+      role={title ? "img" : "presentation"}
+    >
+      {title ? <title>{title}</title> : null}
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" />
+      <path d="M14 2v6h6" />
+      <path d="M8 13h8" />
+      <path d="M8 17h8" />
+      <path d="M8 9h2" />
+    </svg>
+  );
+}
+
 export function IconVerified({
   className = "h-4 w-4",
   title = "Verified",

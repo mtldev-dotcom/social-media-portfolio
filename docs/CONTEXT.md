@@ -116,8 +116,8 @@ Three-column desktop layout:
 
 | Column | Content |
 |--------|---------|
-| **Left** | Minimal icon navigation (grayscale) + theme toggle + language switcher |
-| **Center** | Profile header + social feed (stacked cards) |
+| **Left** | Minimal icon navigation (Home, About, Lab, Notes) + theme toggle + language switcher |
+| **Center** | Profile header + social feed (stacked cards) — or route-specific content (About, Lab, Notes) |
 | **Right** | Profile summary, stats, tech stack tags, floating AI chat panel |
 
 ### Responsive intent

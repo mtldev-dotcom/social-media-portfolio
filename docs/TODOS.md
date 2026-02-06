@@ -95,10 +95,11 @@ This is the working task list for building the "social-profile portfolio" UI des
 
 ### Phase 1 — Information Architecture
 
-- [ ] Create `/docs/feed-model.md` (feed-first rules)
-- [ ] Overhaul navigation: Home, About, Lab, Notes (remove Search, Projects, Experience, Testimonials, Settings)
-- [ ] Create new routes: `/about`, `/lab`, `/notes`
-- [ ] Update icons + translations for new nav
+- [x] Create `/docs/feed-model.md` (feed-first rules)
+- [x] Overhaul navigation: Home, About, Lab, Notes (removed Search, Projects, Experience, Testimonials, Settings)
+- [x] Create new routes: `/about`, `/lab`, `/notes`
+- [x] Update icons + translations for new nav
+- [x] Locale-aware active-route detection in LeftNav
 
 ### Phase 2 — UI Structure
 

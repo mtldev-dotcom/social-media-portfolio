@@ -55,7 +55,10 @@ app/
   globals.css            # Design tokens (dark + light), Tailwind theme
   [locale]/
     layout.tsx           # Root layout, fonts, theme init, NextIntlClientProvider
-    page.tsx             # Main 3-column page
+    page.tsx             # Main 3-column page (feed)
+    about/page.tsx       # Static profile snapshot
+    lab/page.tsx         # Experiments & tools
+    notes/page.tsx       # Filtered feed (NOTE type)
 
 i18n/
   routing.ts             # Locale list + default locale
@@ -70,7 +73,7 @@ components/
   ui/                    # Primitives: Card, Button, Tag
   icons.tsx              # Inline SVG icons (grayscale)
   ProfileHeader.tsx
-  LeftNav.tsx            # Icon navigation + theme toggle + language switcher
+  LeftNav.tsx            # Icon navigation (Home, About, Lab, Notes) + theme/lang toggles
   Feed.tsx               # Social feed with typed post variants
   RightRail.tsx          # Profile summary, stats, skills
   ChatPanel.tsx          # AI Guide placeholder (client component)
@@ -88,6 +91,9 @@ docs/
   CONTEXT.md             # Design brief + constraints
   TODOS.md               # Implementation checklist
   content-enhance.md     # Content strategy / build plan
+  vision.md              # Site purpose + positioning
+  content-types.md       # Content taxonomy
+  feed-model.md          # Feed-first mental model
 ```
 
 ## Internationalization (i18n)

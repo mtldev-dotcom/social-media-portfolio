@@ -6,11 +6,9 @@
   "nav": {
     "primary": "Primary",
     "home": "Home",
-    "search": "Search",
-    "projects": "Projects",
-    "experience": "Experience",
-    "testimonials": "Testimonials",
-    "settings": "Settings"
+    "about": "About",
+    "lab": "Lab",
+    "notes": "Notes"
   },
   "profile": {
     "name": "Nicky Bruno",
@@ -140,5 +138,26 @@
     "label": "Language",
     "switchToEn": "Switch to English",
     "switchToFr": "Passer au français"
+  },
+  "about": {
+    "title": "About",
+    "heading": "Nicky Bruno",
+    "tagline": "creative technologist · ai & automation",
+    "bio": "i build calm systems.\nsometimes i write about them.",
+    "background": "I design and build AI-powered automation, editorial-grade interfaces, and developer tooling. My work is grounded in clarity, reliability, and a preference for shipping over perfection.",
+    "basedIn": "Based in Montreal · Remote",
+    "status": "currently building · experimenting · available to chat"
+  },
+  "lab": {
+    "title": "Lab",
+    "heading": "Lab",
+    "description": "tools, experiments, interactive demos, and unfinished ideas.",
+    "emptyState": "experiments coming soon."
+  },
+  "notes": {
+    "title": "Notes",
+    "heading": "Notes",
+    "description": "learnings, reflections, and reminders.",
+    "emptyState": "no notes yet."
   }
 }

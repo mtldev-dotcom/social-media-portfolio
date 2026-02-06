@@ -6,11 +6,9 @@
   "nav": {
     "primary": "Principal",
     "home": "Accueil",
-    "search": "Recherche",
-    "projects": "Projets",
-    "experience": "Expérience",
-    "testimonials": "Témoignages",
-    "settings": "Paramètres"
+    "about": "À propos",
+    "lab": "Labo",
+    "notes": "Notes"
   },
   "profile": {
     "name": "Nicky Bruno",
@@ -140,5 +138,26 @@
     "label": "Langue",
     "switchToEn": "Switch to English",
     "switchToFr": "Passer au français"
+  },
+  "about": {
+    "title": "À propos",
+    "heading": "Nicky Bruno",
+    "tagline": "technologue créatif · ia et automatisation",
+    "bio": "je construis des systèmes calmes.\nparfois j'écris à leur sujet.",
+    "background": "Je conçois et construis de l'automatisation propulsée par l'IA, des interfaces de qualité éditoriale et des outils pour développeurs. Mon travail repose sur la clarté, la fiabilité et une préférence pour l'expédition plutôt que la perfection.",
+    "basedIn": "Basé à Montréal · Télétravail",
+    "status": "en construction · en expérimentation · disponible pour discuter"
+  },
+  "lab": {
+    "title": "Labo",
+    "heading": "Labo",
+    "description": "outils, expériences, démos interactives et idées inachevées.",
+    "emptyState": "expériences à venir."
+  },
+  "notes": {
+    "title": "Notes",
+    "heading": "Notes",
+    "description": "apprentissages, réflexions et rappels.",
+    "emptyState": "aucune note pour l'instant."
   }
 }

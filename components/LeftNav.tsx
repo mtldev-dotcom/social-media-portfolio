@@ -1,11 +1,12 @@
+"use client";
+
 import { useTranslations } from "next-intl";
+import { Link, usePathname } from "@/i18n/navigation";
 import {
-  IconBriefcase,
-  IconGrid,
+  IconFileText,
+  IconFlask,
   IconHome,
-  IconMessage,
-  IconSearch,
-  IconSettings,
+  IconUser,
 } from "./icons";
 import { ThemeToggle } from "./ThemeToggle";
 import { LanguageSwitcher } from "./LanguageSwitcher";
@@ -16,50 +17,44 @@ type NavItem = {
   labelKey: string;
   href: string;
   icon: React.ReactNode;
-  active?: boolean;
 };
 
 /**
  * LeftNav
  * Minimal icon navigation in grayscale.
+ * - 4 items only: Home, About, Lab, Notes.
  * - Accent blue is reserved for the active item only.
  * - All labels are resolved from the "nav" translation namespace.
+ * - Uses locale-aware Link for proper routing.
  */
 export function LeftNav() {
   const t = useTranslations("nav");
+  const pathname = usePathname();
 
   const items: NavItem[] = [
     {
       id: "home",
       labelKey: "home",
-      href: "#home",
+      href: "/",
       icon: <IconHome />,
-      active: true,
-    },
-    { id: "search", labelKey: "search", href: "#search", icon: <IconSearch /> },
-    {
-      id: "projects",
-      labelKey: "projects",
-      href: "#projects",
-      icon: <IconGrid />,
     },
     {
-      id: "experience",
-      labelKey: "experience",
-      href: "#experience",
-      icon: <IconBriefcase />,
+      id: "about",
+      labelKey: "about",
+      href: "/about",
+      icon: <IconUser />,
     },
     {
-      id: "testimonials",
-      labelKey: "testimonials",
-      href: "#testimonials",
-      icon: <IconMessage />,
+      id: "lab",
+      labelKey: "lab",
+      href: "/lab",
+      icon: <IconFlask />,
     },
     {
-      id: "settings",
-      labelKey: "settings",
-      href: "#settings",
-      icon: <IconSettings />,
+      id: "notes",
+      labelKey: "notes",
+      href: "/notes",
+      icon: <IconFileText />,
     },
   ];
 
@@ -70,23 +65,29 @@ export function LeftNav() {
     >
       {items.map((item) => {
         const label = t(item.labelKey);
+        /* Active state: exact match for home ("/"), prefix match for others */
+        const isActive =
+          item.href === "/"
+            ? pathname === "/"
+            : pathname.startsWith(item.href);
+
         return (
-          <a
+          <Link
             key={item.id}
             href={item.href}
             aria-label={label}
-            aria-current={item.active ? "page" : undefined}
+            aria-current={isActive ? "page" : undefined}
             className={
               "group inline-flex h-10 w-10 items-center justify-center rounded-xl " +
               "transition-colors focus-visible:outline-none " +
-              (item.active
+              (isActive
                 ? "bg-accent-soft text-accent"
                 : "text-foreground/60 hover:bg-surface-2 hover:text-foreground/85")
             }
             title={label}
           >
             {item.icon}
-          </a>
+          </Link>
         );
       })}
 
