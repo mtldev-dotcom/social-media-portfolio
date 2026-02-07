@@ -1,10 +1,15 @@
 import type { CollectionConfig } from "payload";
+import { autoGenerateSlug } from "../hooks";
+import { translationStatusField } from "../fields/translationStatus";
 
 /**
  * Notes — learnings, reflections. Localized (en/fr), draft/publish.
  */
 export const Notes: CollectionConfig = {
   slug: "notes",
+  hooks: {
+    beforeChange: [autoGenerateSlug],
+  },
   admin: {
     useAsTitle: "title",
     defaultColumns: ["title", "slug", "status", "publishedAt"],
@@ -33,9 +38,13 @@ export const Notes: CollectionConfig = {
     {
       name: "slug",
       type: "text",
-      required: true,
-      localized: true,
-      admin: { position: "sidebar" },
+      required: false,
+      unique: true,
+      index: true,
+      admin: {
+        position: "sidebar",
+        description: "Auto-generated from title.",
+      },
     },
     {
       name: "body",
@@ -66,5 +75,6 @@ export const Notes: CollectionConfig = {
       relationTo: "media",
       admin: { position: "sidebar" },
     },
+    translationStatusField,
   ],
 };

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { setRequestLocale } from "next-intl/server";
+import { setRequestLocale, getTranslations } from "next-intl/server";
 import Image from "next/image";
 import { LeftNav } from "@/components/LeftNav";
 import { RightRail } from "@/components/RightRail";
@@ -76,6 +76,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function EntryDetailPage({ params }: Props) {
   const { locale, type: rawType, slug } = await params;
   setRequestLocale(locale);
+  const t = await getTranslations("detail");
 
   const entryType = parseType(rawType);
   if (!entryType) notFound();
@@ -97,7 +98,7 @@ export default async function EntryDetailPage({ params }: Props) {
               href="/"
               className="inline-block text-xs text-muted transition-colors hover:text-foreground"
             >
-              &larr; back to feed
+              {t("backToFeed")}
             </Link>
 
             <EntryDetail entry={entry} />

@@ -24,7 +24,21 @@ export default buildConfig({
     fallback: true,
   },
 
-  secret: process.env.PAYLOAD_SECRET || "change-me-in-production",
+  secret: (() => {
+    const secret = process.env.PAYLOAD_SECRET;
+    if (!secret) {
+      throw new Error(
+        'PAYLOAD_SECRET environment variable is required. ' +
+        'Generate one with: openssl rand -base64 32'
+      );
+    }
+    if (secret.length < 32) {
+      throw new Error(
+        'PAYLOAD_SECRET must be at least 32 characters long for security.'
+      );
+    }
+    return secret;
+  })(),
 
   db: sqliteAdapter({
     client: {

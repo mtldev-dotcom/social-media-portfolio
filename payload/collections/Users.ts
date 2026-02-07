@@ -14,7 +14,23 @@ export const Users: CollectionConfig = {
   },
   access: {
     read: () => true,
-    create: () => true,
+    create: async ({ req }) => {
+      // Allow first user creation (bootstrap admin)
+      // After that, require authentication
+      const payload = req.payload;
+      const existingUsers = await payload.find({
+        collection: 'users',
+        limit: 1,
+      });
+
+      // If no users exist, allow creation (first admin)
+      if (existingUsers.totalDocs === 0) {
+        return true;
+      }
+
+      // Otherwise, require authenticated user
+      return Boolean(req.user);
+    },
     update: ({ req: { user } }) => Boolean(user),
     delete: ({ req: { user } }) => Boolean(user),
   },

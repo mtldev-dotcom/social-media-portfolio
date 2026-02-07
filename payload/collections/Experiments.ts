@@ -1,10 +1,15 @@
 import type { CollectionConfig } from "payload";
+import { autoGenerateSlug } from "../hooks";
+import { translationStatusField } from "../fields/translationStatus";
 
 /**
  * Experiments (Lab) — tools, playgrounds. Localized (en/fr), draft/publish, optional meta.
  */
 export const Experiments: CollectionConfig = {
   slug: "experiments",
+  hooks: {
+    beforeChange: [autoGenerateSlug],
+  },
   admin: {
     useAsTitle: "title",
     defaultColumns: ["title", "slug", "status", "publishedAt"],
@@ -33,9 +38,13 @@ export const Experiments: CollectionConfig = {
     {
       name: "slug",
       type: "text",
-      required: true,
-      localized: true,
-      admin: { position: "sidebar" },
+      required: false,
+      unique: true,
+      index: true,
+      admin: {
+        position: "sidebar",
+        description: "Auto-generated from title.",
+      },
     },
     {
       name: "summary",
@@ -81,5 +90,6 @@ export const Experiments: CollectionConfig = {
       ],
       admin: { position: "sidebar" },
     },
+    translationStatusField,
   ],
 };
