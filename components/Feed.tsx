@@ -23,13 +23,14 @@ export function Feed({ entries }: { entries: BlogEntry[] }) {
   return (
     <div className="space-y-4">
       {entries.map((entry) => {
+        const key = `${entry.type}-${entry.id}`;
         switch (entry.type) {
           case "POST":
-            return <PostCard key={entry.id} entry={entry} />;
+            return <PostCard key={key} entry={entry} />;
           case "NOTE":
-            return <NoteCard key={entry.id} entry={entry} />;
+            return <NoteCard key={key} entry={entry} />;
           case "EXPERIMENT":
-            return <ExperimentCard key={entry.id} entry={entry} />;
+            return <ExperimentCard key={key} entry={entry} />;
           default:
             return null;
         }
@@ -72,63 +73,86 @@ function EntryLink({ entry, children }: { entry: BlogEntry; children: React.Reac
 }
 
 /**
- * PostCard — blog post card.
+ * PostCard — enhanced blog post card with title, summary, and hero image.
  */
 function PostCard({ entry }: { entry: BlogEntry }) {
-  if ((entry as BlogEntry & { variant?: string }).variant === "testimonial") {
-    return (
-      <Card>
-        <CardBody className="pt-5">
-          <TypeLabel type={entry.type} />
-          <p className="text-xs text-muted-2">{formatDate(entry)}</p>
-          <div className="mt-3 flex items-start gap-3">
-            <div className="h-9 w-9 rounded-full border border-divider bg-surface-2" />
-            <div className="min-w-0">
-              <p className="text-sm text-foreground/90">
-                <span className="font-medium">{m(entry, "from")}</span>{" "}
-                <span className="text-muted">· {m(entry, "role")}</span>
-              </p>
-              <p className="mt-2 text-sm leading-relaxed text-muted">
-                <EntryLink entry={entry}>{m(entry, "comment")}</EntryLink>
-              </p>
-            </div>
-          </div>
-        </CardBody>
-      </Card>
-    );
-  }
+  // Get summary or create excerpt from body
+  const getExcerpt = (text: string | undefined, maxLength: number = 180): string => {
+    if (!text) return "";
+    // Remove markdown headers and clean up
+    const cleaned = text
+      .replace(/^#+\s+/gm, "") // Remove markdown headers
+      .replace(/\*\*/g, "") // Remove bold
+      .replace(/\n{2,}/g, " ") // Replace multiple newlines with space
+      .trim();
+    if (cleaned.length <= maxLength) return cleaned;
+    return cleaned.slice(0, maxLength).trim() + "…";
+  };
 
-  /* Regular text post */
-  const stats = entry.meta?.stats as
-    | { replies: number; reposts: number; likes: number }
-    | undefined;
+  const excerpt = entry.summary || getExcerpt(entry.body);
+  const hasHero = entry.hero?.src;
+
   return (
     <Card>
       <CardBody className="pt-5">
         <TypeLabel type={entry.type} />
-        <div className="flex items-start justify-between gap-4">
-          <div className="min-w-0">
-            <p className="text-sm text-foreground/90">
-              <span className="font-medium">{m(entry, "author") || "Author"}</span>{" "}
-              <span className="text-muted">{m(entry, "handle")}</span>{" "}
-              <span className="text-muted-2">· {formatDate(entry)}</span>
-            </p>
-            <p className="mt-3 text-base leading-relaxed text-foreground">
-              <EntryLink entry={entry}>{entry.body}</EntryLink>
-            </p>
-          </div>
+
+        {/* Header with author and date */}
+        <div className="flex items-center gap-2 text-xs text-muted-2">
+          <span className="font-medium text-foreground/70">{m(entry, "author") || "Author"}</span>
+          <span>·</span>
+          <span>{formatDate(entry)}</span>
         </div>
-        {stats && (
-          <div className="mt-4 flex items-center gap-4 text-xs text-muted">
-            <span>{stats.replies} {m(entry, "repliesLabel")}</span>
-            <span>{stats.reposts} {m(entry, "repostsLabel")}</span>
-            <span>{stats.likes} {m(entry, "likesLabel")}</span>
+
+        {/* Title */}
+        <h3 className="mt-3 font-display text-lg font-semibold tracking-tight text-foreground">
+          <EntryLink entry={entry}>{entry.title}</EntryLink>
+        </h3>
+
+        {/* Hero image (if exists) */}
+        {hasHero && (
+          <div className="mt-4 overflow-hidden rounded-lg">
+            <EntryLink entry={entry}>
+              <Image
+                src={entry.hero!.src}
+                alt={entry.hero!.alt || entry.title || "Post image"}
+                width={600}
+                height={300}
+                className="h-48 w-full object-cover transition-transform duration-300 hover:scale-105"
+              />
+            </EntryLink>
           </div>
         )}
+
+        {/* Summary/Excerpt */}
+        {excerpt && (
+          <p className="mt-3 text-sm leading-relaxed text-foreground/70 line-clamp-3">
+            {excerpt}
+          </p>
+        )}
+
+        {/* Tags */}
+        {entry.tags && entry.tags.length > 0 && (
+          <div className="mt-4 flex flex-wrap gap-2">
+            {entry.tags.slice(0, 4).map((tag) => (
+              <Tag key={tag}>{tag}</Tag>
+            ))}
+          </div>
+        )}
+
+        {/* Read more link */}
+        <div className="mt-4 pt-3 border-t border-divider/50">
+          <EntryLink entry={entry}>
+            <span className="text-sm font-medium text-accent hover:underline">
+              Read more →
+            </span>
+          </EntryLink>
+        </div>
       </CardBody>
     </Card>
   );
 }
+
 
 /**
  * NoteCard — learning, reflection, or reminder.

@@ -30,7 +30,7 @@ export function TimelineView({ entries }: { entries: BlogEntry[] }) {
           </h2>
           <div className="space-y-2">
             {grouped[year].map((entry) => (
-              <TimelineEntry key={entry.id} entry={entry} />
+              <TimelineEntry key={`${entry.type}-${entry.id}`} entry={entry} />
             ))}
           </div>
         </div>
@@ -46,10 +46,10 @@ function TimelineEntry({ entry }: { entry: BlogEntry }) {
   const title = getTitle(entry);
   const dateStr = entry.publishedAt
     ? new Date(entry.publishedAt).toLocaleDateString(entry.locale, {
-        year: "numeric",
-        month: "short",
-        day: "numeric",
-      })
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    })
     : "";
 
   return (

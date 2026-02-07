@@ -1,6 +1,7 @@
 import type { CollectionConfig } from "payload";
 import { autoGenerateSlug } from "../hooks";
 import { translationStatusField } from "../fields/translationStatus";
+import { translateButtonsField } from "../fields/translateButtons";
 
 /**
  * Experiments (Lab) — tools, playgrounds. Localized (en/fr), draft/publish, optional meta.
@@ -91,5 +92,6 @@ export const Experiments: CollectionConfig = {
       admin: { position: "sidebar" },
     },
     translationStatusField,
+    translateButtonsField,
   ],
 };

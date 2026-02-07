@@ -1,6 +1,7 @@
 import type { CollectionConfig } from "payload";
 import { autoGenerateSlug } from "../hooks";
 import { translationStatusField } from "../fields/translationStatus";
+import { translateButtonsField } from "../fields/translateButtons";
 
 /**
  * Posts — blog posts. Localized (en/fr), draft/publish, hero image.
@@ -81,5 +82,6 @@ export const Posts: CollectionConfig = {
       admin: { position: "sidebar" },
     },
     translationStatusField,
+    translateButtonsField,
   ],
 };

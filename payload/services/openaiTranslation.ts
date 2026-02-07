@@ -7,22 +7,29 @@ const LOCALE_NAMES: Record<SupportedLocale, string> = {
   fr: 'French',
 };
 
-// Lazy initialization of OpenAI client
-let openai: OpenAI | null = null;
+// Lazy initialization of OpenRouter client (OpenAI-compatible)
+let openrouter: OpenAI | null = null;
 
-function getOpenAI(): OpenAI {
-  if (!openai) {
-    const apiKey = process.env.OPENAI_API_KEY;
+function getOpenRouter(): OpenAI {
+  if (!openrouter) {
+    const apiKey = process.env.OPEN_ROUTER_API_KEY;
     if (!apiKey) {
-      throw new Error('OPENAI_API_KEY environment variable is required for translation');
+      throw new Error('OPEN_ROUTER_API_KEY environment variable is required for translation');
     }
-    openai = new OpenAI({ apiKey });
+    openrouter = new OpenAI({
+      apiKey,
+      baseURL: 'https://openrouter.ai/api/v1',
+      defaultHeaders: {
+        'HTTP-Referer': process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000',
+        'X-Title': 'Social Media Blog Translation',
+      },
+    });
   }
-  return openai;
+  return openrouter;
 }
 
 /**
- * Translates text using OpenAI GPT-4o-mini.
+ * Translates text using OpenRouter API (GPT-4o-mini via OpenRouter).
  */
 export async function translateText(
   text: string,
@@ -30,8 +37,8 @@ export async function translateText(
 ): Promise<string> {
   if (!text || !text.trim()) return text;
 
-  const response = await getOpenAI().chat.completions.create({
-    model: 'gpt-4o-mini',
+  const response = await getOpenRouter().chat.completions.create({
+    model: 'openai/gpt-4o-mini', // OpenRouter model format
     messages: [
       {
         role: 'system',
