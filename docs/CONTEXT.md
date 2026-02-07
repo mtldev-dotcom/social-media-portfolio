@@ -2,9 +2,9 @@
 
 ## Product concept
 
-This project is a **professional personal blog** with the same 3-column, social-profile-inspired layout — powered by **Payload CMS** as a headless CMS. Content (posts, notes, experiments) and comments are managed in Payload Admin; the frontend reads from the Payload Local API.
+This project is a **professional personal blog** (EN/FR) with a 3-column layout — powered by **Next.js** and **Payload CMS** as a headless CMS. Content (posts, notes, experiments) and comments are managed in Payload Admin; the frontend reads from the Payload Local API.
 
-The goal is for the site to feel like a **living profile** (blog feed, activity, proof) while being a full blog with drafts, localization (EN/FR), and native comments.
+The goal is a **living blog** (feed, posts, notes, experiments) with drafts, localization (EN/FR), and native comments.
 
 ---
 
@@ -117,7 +117,7 @@ Three-column desktop layout:
 | Column | Content |
 |--------|---------|
 | **Left** | Minimal icon navigation (Home, About, Lab, Notes) + theme toggle + language switcher |
-| **Center** | Profile header + social feed (stacked cards) — or route-specific content (About, Lab, Notes) |
+| **Center** | Profile header + blog feed (stacked cards) — or route-specific content (About, Lab, Notes) |
 | **Right** | Profile summary, stats, tech stack tags, floating AI chat panel |
 
 ### Responsive intent
@@ -143,31 +143,17 @@ Three-column desktop layout:
 
 ## Feed content types
 
-The main feed includes these content types (defined in `/docs/content-types.md`):
+The main feed includes these content types (defined in `/docs/content-types.md` and managed in Payload):
 
 | Type       | Style                         |
 |------------|-------------------------------|
-| POST       | Short text (X/Twitter) or testimonial |
-| PROJECT    | Image thumbnail + tags (Instagram-inspired) |
-| STORY      | Role, org, bullets (LinkedIn-inspired) |
+| POST       | Blog post (title, body, publishedAt, tags, hero) |
 | NOTE       | Learning, reflection, or reminder |
-| EXPERIMENT | What / why / learned |
-| ACTIVITY   | Building status or availability update |
+| EXPERIMENT | Lab entry (what / why / learned in meta) |
 
-### Content architecture (file-based CMS)
+### Content architecture (Payload CMS)
 
-Content is stored as one JSON file per entry per locale:
-
-```
-content/entries/{locale}/{slug}.{type}.json
-```
-
-- **Loader**: `lib/content/loader.ts` reads files with `fs/promises`, validates, filters drafts, sorts by date.
-- **Caching**: `lib/content/index.ts` wraps loaders with React `cache()`.
-- **Types**: `lib/content/types.ts` defines `Entry`, `EntryType`, etc.
-- **Detail pages**: `app/[locale]/[type]/[slug]/page.tsx` renders each entry with Markdown body support.
-- **UI chrome** (nav, buttons, labels) stays in `messages/{locale}.json` via `next-intl`.
-- **Content text** lives directly in entry JSON files — no longer in translation files.
+Content is managed in **Payload Admin** at `/admin` (Posts, Notes, Experiments collections). Localization (EN/FR) is per document. The frontend reads via `lib/payload` (getAllEntries, getEntryBySlug, getTimeline, etc.); only **published** documents are shown. Detail pages: `app/[locale]/[type]/[slug]/page.tsx` (post, note, experiment).
 
 ---
 
@@ -186,7 +172,8 @@ Fonts are loaded via `next/font/google` in `app/[locale]/layout.tsx` and exposed
 
 | Layer | Tech |
 |-------|------|
-| Framework | Next.js 16 (App Router) |
+| Framework | Next.js 15 (App Router) |
+| CMS | Payload CMS 3.x (headless, Local API) |
 | Language | TypeScript 5 |
 | Styling | Tailwind CSS v4 (CSS variable tokens) |
 | i18n | next-intl (route-based, EN/FR) |
@@ -213,7 +200,7 @@ npm run build    # Production build
 
 ## Acceptance criteria (visual)
 
-- The page reads as a **social profile** first, portfolio second.
+- The page reads as a **blog** first (feed, posts, notes, experiments).
 - Accent blue is used **only** for emphasis (buttons, active nav, verified badge, subtle focus/glow).
 - No gradients; no additional accent colors; no neon.
 - Cards feel premium: neutral surfaces, thin dividers, subtle shadow depth, optional soft glass effect.

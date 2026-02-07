@@ -1,6 +1,6 @@
 # Implementation TODOs
 
-This is the working task list for building the "social-profile portfolio" UI described in `docs/CONTEXT.md`.
+This is the working task list for the blog (EN/FR) built with Next.js and Payload CMS, as described in `docs/CONTEXT.md`.
 
 ---
 

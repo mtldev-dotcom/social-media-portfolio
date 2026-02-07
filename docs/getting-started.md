@@ -17,7 +17,7 @@ Run the blog locally and publish your first post in under 10 minutes.
 ```bash
 # Clone the repo (or use your existing project folder)
 git clone <your-repo-url>
-cd social-media-portfolio
+cd <project-directory>   # e.g. the folder name of your clone
 
 # Install dependencies
 npm install

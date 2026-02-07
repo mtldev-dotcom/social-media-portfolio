@@ -1,6 +1,6 @@
 # Site Vision
 
-This site is a **professional personal blog** — a living personal media page.
+This site is a **professional personal blog** (EN/FR) — a living blog powered by Next.js and Payload CMS.
 It documents what I build, think about, experiment with, and abandon.
 Content is managed in Payload CMS (posts, notes, experiments) with native comments.
 

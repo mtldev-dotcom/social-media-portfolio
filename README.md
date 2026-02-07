@@ -3,7 +3,7 @@
 A **professional personal blog** with the same 3-column layout and Facebook-inspired design — powered by [Payload CMS](https://payloadcms.com) as a headless CMS. Bilingual (EN/FR), dark/light theme, posts, notes, and experiments with native comments.
 
 ![Dark mode](https://img.shields.io/badge/theme-dark%20%2F%20light-1877f2)
-![Next.js 16](https://img.shields.io/badge/Next.js-16-black)
+![Next.js 15](https://img.shields.io/badge/Next.js-15-black)
 ![Payload CMS](https://img.shields.io/badge/Payload-CMS-2d3748)
 ![Tailwind v4](https://img.shields.io/badge/Tailwind-v4-38bdf8)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-3178c6)
@@ -25,7 +25,7 @@ A **professional personal blog** with the same 3-column layout and Facebook-insp
 
 | Layer | Tech |
 |-------|------|
-| Framework | Next.js 16 (App Router) |
+| Framework | Next.js 15 (App Router) |
 | CMS | Payload CMS 3.x (headless, Local API) |
 | Database | SQLite (dev) or Postgres/MongoDB (prod via `DATABASE_URI`) |
 | Language | TypeScript 5 |
@@ -74,7 +74,7 @@ npm run dev
 
 ```
 app/
-  layout.tsx              # Root layout (html/body)
+  layout.tsx              # Root layout (fragment; no html/body)
   globals.css              # Design tokens (dark + light)
   (payload)/               # Payload routes (no URL segment)
     layout.tsx             # Payload layout
